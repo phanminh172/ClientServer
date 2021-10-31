@@ -41,14 +41,14 @@
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" href="#">Tài khoản</a>
-                        <a class="dropdown-item" href="~/Admin/Login/Index">
+                        <a class="dropdown-item" href="~/Admin/Login/Index" >
                             @*onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();">*@
+                        document.getElementById('logout-form').submit();">*@
                             Đăng xuất
                         </a>
                         @*<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>*@
+                            @csrf
+                        </form>*@
                     </div>
                 </div>
             </div>
@@ -56,7 +56,7 @@
         <div id="page-body" class="d-flex">
             <div id="sidebar" class="bg-white">
                 <ul id="sidebar-menu">
-                    <li class="nav-link active">
+                    <li class="nav-link">
                         <a href="~/Admin/Home/Index">
                             <div class="nav-link-icon d-inline-flex">
                                 <i class="fa fa-home"></i>
@@ -64,7 +64,7 @@
                             Dashboard
                         </a>
                     </li>
-                    <li class="nav-link">
+                    <li class="nav-link active">
                         <a href="~/Admin/Diary/Index">
                             <div class="nav-link-icon d-inline-flex">
                                 <i class="fas fa-edit"></i>
@@ -127,68 +127,80 @@
                 </ul>
             </div>
             <div id="wp-content">
-                <div class="container-fluid py-5">
-                    <div class="row">
-                        <div class="col">
-                            <div class="card text-white bg-primary mb-3" style="max-width: 18rem;height: 91.5%;">
-                                <div class="card-header">SỐ LƯỢNG NHẬT KÝ</div>
-                                <div class="card-body">
-                                    <h5 class="card-title">100</h5>
-                                    <p class="card-text">Nhật ký sản lượng khoán</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card text-white bg-danger mb-3" style="max-width: 18rem;height: 91.5%;">
-                                <div class="card-header">SỐ LƯỢNG CÔNG NHÂN</div>
-                                <div class="card-body">
-                                    <h5 class="card-title">10</h5>
-                                    <p class="card-text">Công nhân</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card text-white bg-success mb-3" style="max-width: 18rem;height: 91.5%;">
-                                <div class="card-header">SỐ LƯỢNG SẢN PHẨM</div>
-                                <div class="card-body">
-                                    <h5 class="card-title">10</h5>
-                                    <p class="card-text">Sản phẩm</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card text-white bg-dark mb-3" style="max-width: 18rem;height: 91.5%;">
-                                <div class="card-header">CÔNG VIỆC HOÀN THÀNH</div>
-                                <div class="card-body">
-                                    <h5 class="card-title">50</h5>
-                                    <p class="card-text">Công việc đã hoàn thành</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end analytic  -->
+                <div id="content" class="container-fluid">
                     <div class="card">
-                        <div class="card-header font-weight-bold">
-                            Nhật ký gần đây
+                        <div class="card-header font-weight-bold d-flex justify-content-between align-items-center"
+                             style="box-sizing: border-box">
+                            <h5 class="m-0 ">Danh sách công việc</h5>
+                            <div class="form-inline">
+                                <form action="">
+                                    <input type="" class="form-control form-search" name="keyword" autocomplete="off"
+                                           placeholder="Nhập tên công việc ...">
+                                    <button type="submit" class="btn btn-success">Tìm kiếm</button>
+                                </form>
+                            </div>
                         </div>
                         <div class="card-body">
-                            <table class="table table-striped">
+                            <div class="analytic">
+                                <a href="">Tất cả (100)</a>
+                                <a href="">Làm chung (100)</a>
+                                <a href="">Làm riêng (100)</a>
+                            </div>
+                            <table class="table table-striped table-checkall">
                                 <thead>
                                     <tr>
                                         <th scope="col">STT</th>
-                                        <th scope="col">Ngày thực hiện</th>
-                                        <th scope="col">Ca làm</th>
+                                        <th scope="col">Tên công việc</th>
+                                        <th scope="col">Sản lượng thực tế</th>
+                                        <th scope="col">Số lô sản phẩm</th>
+                                        <th scope="col">Sản phẩm</th>
                                         <th scope="col">Tác vụ</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th scope="row">1</th>
-                                        <td>21/10/2021</td>
-                                        <td>6h-14h</td>
+                                        <td scope="row">1</td>
+                                        <td>Đóng gói</td>
+                                        <td>100</td>
+                                        <td>1</td>
+                                        <td>Mỳ tôm</td>
                                         <td>
                                             <a href="" class="btn btn-success btn-sm rounded-0 text-white" type="button"
-                                               data-toggle="tooltip" data-placement="top" title="Chi tiết">
+                                               data-toggle="tooltip" data-placement="top" title="Chỉnh sửa">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                            <a href="" class="btn btn-danger btn-sm rounded-0 text-white" type="button"
+                                               data-toggle="modal" data-placement="top" title="Xóa">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="row">2</td>
+                                        <td>Đóng gói</td>
+                                        <td>100</td>
+                                        <td>1</td>
+                                        <td>Mỳ tôm</td>
+                                        <td>
+                                            <a href="" class="btn btn-success btn-sm rounded-0 text-white" type="button"
+                                               data-toggle="tooltip" data-placement="top" title="Chỉnh sửa">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                            <a href="" class="btn btn-danger btn-sm rounded-0 text-white" type="button"
+                                               data-toggle="modal" data-placement="top" title="Xóa">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="row">3</td>
+                                        <td>Đóng gói</td>
+                                        <td>100</td>
+                                        <td>1</td>
+                                        <td>Mỳ tôm</td>
+                                        <td>
+                                            <a href="" class="btn btn-success btn-sm rounded-0 text-white" type="button"
+                                               data-toggle="tooltip" data-placement="top" title="Chỉnh sửa">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                             <a href="" class="btn btn-danger btn-sm rounded-0 text-white" type="button"
@@ -210,7 +222,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <!-- Toastr thư viện thông báo  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="~/Assets/Admin/app.js"></script>
 </body>
 
 </html>
-
