@@ -1,269 +1,89 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@model IEnumerable<ClientServer.Models.EntityFramework.NhatKiSanLuongKhoan>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="shortcut icon" type="image/ico" href="~/Assets/Admin/img/ismart.ico" />
-    {{-- Style --}}
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/solid.min.css">
-    <link rel="stylesheet" href="~/Assets/Admin/style.css">
-    <!-- Toastr thư viện thông báo  -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <title>Trang quản trị</title>
-</head>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
 
-<body>
-    <div id="warpper" class="nav-fixed">
-        <nav class="topnav shadow navbar-light bg-white d-flex">
-            <div class="navbar-brand"><a href="dashboard.html">TRANG QUẢN TRỊ</a></div>
-            <div class="nav-right ">
-                <div class="btn-group mr-auto">
-                    <button type="button" class="btn dropdown" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                        <i class="plus-icon fas fa-plus-circle"></i>
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="">Thêm nhật ký</a>
-                        <a class="dropdown-item" href="">Thêm công nhân</a>
-                        <a class="dropdown-item" href="">Thêm công việc</a>
-                        <a class="dropdown-item" href="">Thêm sản phẩm</a>
+<div id="content" class="container-fluid">
+    <div class="card">
+        <div class="card-header font-weight-bold d-flex justify-content-between align-items-center"
+             style="box-sizing: border-box">
+            <h5 class="m-0 ">Danh sách nhật ký</h5>
+            <div class="form-inline">
+                @if (TempData["thanhcong"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <strong>@TempData["thanhcong"]</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                </div>
-                <div class="btn-group">
-                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                        ADMIN
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#">Tài khoản</a>
-                        <a class="dropdown-item" href="~/Admin/Login/Index" >
-                           @*onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();">*@
-                            Đăng xuất
-                        </a>
-                        @*<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>*@
-                    </div>
-                </div>
-            </div>
-        </nav>
-        <div id="page-body" class="d-flex">
-            <div id="sidebar" class="bg-white">
-                <ul id="sidebar-menu">
-                    <li class="nav-link">
-                        <a href="~/Admin/Home/Index">
-                            <div class="nav-link-icon d-inline-flex">
-                                <i class="fa fa-home"></i>
-                            </div>
-                            Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-link active">
-                        <a href="~/Admin/Diary/Index">
-                            <div class="nav-link-icon d-inline-flex">
-                                <i class="fas fa-edit"></i>
-                            </div>
-                            Nhật ký
-                        </a>
-                        <i class="arrow fas fa-angle-right"></i>
-                        <ul class="sub-menu">
-                            <li><a href="newDiary.html">Thêm mới</a></li>
-                            <li><a href="~/Admin/Diary/Index">Danh sách</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-link">
-                        <a href="~/Admin/Work/Index">
-                            <div class="nav-link-icon d-inline-flex">
-                                <i class="far fa-bookmark"></i>
-                            </div>
-                            Công việc
-                        </a>
-                        <i class="arrow fas fa-angle-right"></i>
-                        <ul class="sub-menu">
-                            <li><a href="">Thêm mới</a></li>
-                            <li><a href="~/Admin/Work/Index">Danh sách</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-link">
-                        <a href="~/Admin/Product/Index">
-                            <div class="nav-link-icon d-inline-flex">
-                                <i class="fas fa-box-open"></i>
-                            </div>
-                            Sản phẩm
-                        </a>
-                        <i class="arrow fas fa-angle-right"></i>
-                        <ul class="sub-menu">
-                            <li><a href="">Thêm mới</a></li>
-                            <li><a href="~/Admin/Product/Index">Danh sách</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-link">
-                        <a href="~/Admin/Employee/Index">
-                            <div class="nav-link-icon d-inline-flex">
-                                <i class="fa fa-user"></i>
-                            </div>
-                            Công nhân
-                        </a>
-                        <i class="arrow fas fa-angle-right"></i>
-                        <ul class="sub-menu">
-                            <li><a href="">Thêm mới</a></li>
-                            <li><a href="~/Admin/Employee/Index">Danh sách</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-link">
-                        <a href="">
-                            <div class="nav-link-icon d-inline-flex">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            Thống kê
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div id="wp-content">
-                <div id="content" class="container-fluid">
-                    <div class="card">
-                        <div class="card-header font-weight-bold d-flex justify-content-between align-items-center"
-                             style="box-sizing: border-box">
-                            <h5 class="m-0 ">Danh sách nhật ký</h5>
-                            <div class="form-inline">
-                                <form action="">
-                                    <select class="form-control" id="" name='cat'>
-                                        <option value="">Năm</option>
-                                        <option value="">2020</option>
-                                        <option value="">2021</option>
-                                    </select>
-                                    <select class="form-control" id="" name='cat'>
-                                        <option value="">Tháng</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                    </select>
-                                    <select class="form-control" id="" name='cat'>
-                                        <option value="">Ngày</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                    </select>
-                                    <button type="submit" class="btn btn-success">Tìm kiếm</button>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="analytic">
-                                <a href="">Tất cả (100)</a>
-                                <a href="">Làm chung (100)</a>
-                                <a href="">Làm riêng (100)</a>
-                            </div>
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">STT</th>
-                                        <th scope="col">Mã nhật ký</th>
-                                        <th scope="col">Ngày thực hiện</th>
-                                        <th scope="col">Ca làm</th>
-                                        <th scope="col">Tác vụ</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td scope="row">1</td>
-                                        <td>1</td>
-                                        <td>21/10/2021</td>
-                                        <td>6h-14h</td>
-                                        <td>
-                                            <a href="diaryDetail.html" class="btn btn-success btn-sm rounded-0 text-white" type="button"
-                                               data-toggle="tooltip" data-placement="top" title="Chi tiết">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="" class="btn btn-danger btn-sm rounded-0 text-white" type="button"
-                                               data-toggle="modal" data-placement="top" title="Xóa">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">2</td>
-                                        <td>1</td>
-                                        <td>21/10/2021</td>
-                                        <td>6h-14h</td>
-                                        <td>
-                                            <a href="" class="btn btn-success btn-sm rounded-0 text-white" type="button"
-                                               data-toggle="tooltip" data-placement="top" title="Chi tiết">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="" class="btn btn-danger btn-sm rounded-0 text-white" type="button"
-                                               data-toggle="modal" data-placement="top" title="Xóa">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">3</td>
-                                        <td>1</td>
-                                        <td>21/10/2021</td>
-                                        <td>6h-14h</td>
-                                        <td>
-                                            <a href="" class="btn btn-success btn-sm rounded-0 text-white" type="button"
-                                               data-toggle="tooltip" data-placement="top" title="Chi tiết">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="" class="btn btn-danger btn-sm rounded-0 text-white" type="button"
-                                               data-toggle="modal" data-placement="top" title="Xóa">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">4</td>
-                                        <td>1</td>
-                                        <td>21/10/2021</td>
-                                        <td>6h-14h</td>
-                                        <td>
-                                            <a href="" class="btn btn-success btn-sm rounded-0 text-white" type="button"
-                                               data-toggle="tooltip" data-placement="top" title="Chi tiết">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="" class="btn btn-danger btn-sm rounded-0 text-white" type="button"
-                                               data-toggle="modal" data-placement="top" title="Xóa">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">5</td>
-                                        <td>1</td>
-                                        <td>21/10/2021</td>
-                                        <td>6h-14h</td>
-                                        <td>
-                                            <a href="" class="btn btn-success btn-sm rounded-0 text-white" type="button"
-                                               data-toggle="tooltip" data-placement="top" title="Chi tiết">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="" class="btn btn-danger btn-sm rounded-0 text-white" type="button"
-                                               data-toggle="modal" data-placement="top" title="Xóa">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                }
+                <form action="">
+                    <select class="form-control" id="" name='cat'>
+                        <option value="">Năm</option>
+                        <option value="">2020</option>
+                        <option value="">2021</option>
+                    </select>
+                    <select class="form-control" id="" name='cat'>
+                        <option value="">Tháng</option>
+                        <option value="">1</option>
+                        <option value="">2</option>
+                    </select>
+                    <select class="form-control" id="" name='cat'>
+                        <option value="">Ngày</option>
+                        <option value="">1</option>
+                        <option value="">2</option>
+                    </select>
+                    <button type="submit" class="btn btn-success">Tìm kiếm</button>
+                </form>
             </div>
         </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <!-- Toastr thư viện thông báo  -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script src="~/Assets/Admin/app.js"></script>
-</body>
+        <div class="card-body">
+            <div class="analytic">
+                <a href="">Tất cả (100)</a>
+                <a href="">Làm chung (100)</a>
+                <a href="">Làm riêng (100)</a>
+            </div>
+            @if (Model != null)
+            {
+                var count = 0;
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">STT</th>
+                            <th scope="col">Mã nhật ký</th>
+                            <th scope="col">Ngày thực hiện</th>
+                            <th scope="col">Ca làm</th>
+                            <th scope="col">Tác vụ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-</html>
+                        @foreach (var item in Model)
+                        {
+                            count++;
+                            <tr>
+                                <td scope="row">@count</td>
+                                <td>@item.MaNhatKi</td>
+                                <td>@item.NgayThucHien.Value.ToString("dd/MM/yyyy")</td>
+                                <td>@item.GioBatDau - @item.GioKetThuc</td>
+                                <td>
+                                    <a href="diaryDetail.html" class="btn btn-success btn-sm rounded-0 text-white" type="button"
+                                       data-toggle="tooltip" data-placement="top" title="Chi tiết">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a href="" class="btn btn-danger btn-sm rounded-0 text-white" type="button"
+                                       data-toggle="modal" data-placement="top" title="Xóa">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>

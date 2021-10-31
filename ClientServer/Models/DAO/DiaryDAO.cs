@@ -6,16 +6,16 @@ using System.Web;
 
 namespace ClientServer.Models.DAO
 {
-    public class ProductDAO
+    public class DiaryDAO
     {
         private ClientServerDbContext context = null;
-        public ProductDAO()
+        public DiaryDAO()
         {
             context = new ClientServerDbContext();
         }
-        public List<ThongTinSanPham> ListAll()
+        public List<NhatKiSanLuongKhoan> ListAll()
         {
-            var list = context.ThongTinSanPhams.ToList();
+            var list = context.NhatKiSanLuongKhoans.ToList();
             return list;
         }
     }
