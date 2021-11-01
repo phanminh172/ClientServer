@@ -1,42 +1,120 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="shortcut icon" type="image/ico" href="img/ismart.ico" />
+    {{-- Style --}}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/solid.min.css">
+    <link rel="stylesheet" href="~/Assets/Admin/style.css">
+    <!-- Toastr thư viện thông báo  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <title>Trang cá nhân</title>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    <div id="warpper" class="nav-fixed">
+        <nav class="topnav shadow navbar-light bg-white d-flex">
+            <div class="navbar-brand"><a href="dashboard.html">TRANG CÁ NHÂN</a></div>
+            <div class="nav-right ">
+                <div class="btn-group mr-auto">
+                    <button type="button" class="btn dropdown" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                        <i class="plus-icon fas fa-plus-circle"></i>
+                    </button>
+
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                        TRẦN ĐỨC HUY
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="#">Tài khoản</a>
+                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                            Đăng xuất
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @*@csrf*@
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+        </nav>
+        <div id="page-body" class="d-flex">
+            <div id="sidebar" class="bg-white">
+                <ul id="sidebar-menu">
+
+
+
+                    @*<li class="nav-link">
+                            <a href="~/Admin/Product/Index">
+                                <div class="nav-link-icon d-inline-flex">
+                                    <i class="fas fa-box-open"></i>
+                                </div>
+                                Sản phẩm
+                            </a>
+                            <i class="arrow fas fa-angle-right"></i>
+                            <ul class="sub-menu">
+                                <li><a href="">Thêm mới</a></li>
+                                <li><a href="~/Admin/Product/Index">Danh sách</a></li>
+                            </ul>
+                        </li>
+                    *@
+                    <li class="nav-link">
+                        <a href="~/Employee/Index">
+                            <div class="nav-link-icon d-inline-flex">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            Công nhân
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="~/Shift/Index">
+                            <div class="nav-link-icon d-inline-flex">
+                                <i class="far fa-bookmark"></i>
+                            </div>
+                            Ca Làm
+                        </a>
+                    </li>
+
+
+                    <li class="nav-link">
+                        <a href="~/Diary/Index">
+                            <div class="nav-link-icon d-inline-flex">
+                                <i class="fas fa-edit"></i>
+                            </div>
+                            Nhật ký
+                        </a>
+
+                    </li>
+                    <li class="nav-link">
+                        <a href="~/Feedback/Index">
+                            <div class="nav-link-icon d-inline-flex">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            Góp ý với Quản trị
+                        </a>
+                    </li>
+
                 </ul>
+            </div>
+            <div id="wp-content">
+                @RenderBody()
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- Toastr thư viện thông báo  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="~/Assets/Admin/app.js"></script>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
 </body>
 </html>
