@@ -1,219 +1,66 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="shortcut icon" type="image/ico" href="~/Assets/Admin/img/ismart.ico" />
-    {{-- Style --}}
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/solid.min.css">
-    <link rel="stylesheet" href="~/Assets/Admin/style.css">
-    <!-- Toastr thư viện thông báo  -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <title>Trang quản trị</title>
-</head>
-
-<body>
-    <div id="warpper" class="nav-fixed">
-        <nav class="topnav shadow navbar-light bg-white d-flex">
-            <div class="navbar-brand"><a href="dashboard.html">TRANG QUẢN TRỊ</a></div>
-            <div class="nav-right ">
-                <div class="btn-group mr-auto">
-                    <button type="button" class="btn dropdown" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                        <i class="plus-icon fas fa-plus-circle"></i>
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="">Thêm nhật ký</a>
-                        <a class="dropdown-item" href="">Thêm công nhân</a>
-                        <a class="dropdown-item" href="">Thêm công việc</a>
-                        <a class="dropdown-item" href="">Thêm sản phẩm</a>
-                    </div>
-                </div>
-                <div class="btn-group">
-                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                        ADMIN
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#">Tài khoản</a>
-                        <a class="dropdown-item" href="~/Admin/Login/Index" >
-                            @*onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();">*@
-                            Đăng xuất
-                        </a>
-                        @*<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>*@
-                    </div>
-                </div>
+<div id="content" class="container-fluid">
+    <div class="card">
+        <div class="card-header font-weight-bold d-flex justify-content-between align-items-center"
+             style="box-sizing: border-box">
+            <h5 class="m-0 ">Danh sách công việc</h5>
+            <div class="form-inline">
+                <form action="">
+                    <input type="" class="form-control form-search" name="keyword" autocomplete="off"
+                           placeholder="Nhập tên công việc ...">
+                    <button type="submit" class="btn btn-success">Tìm kiếm</button>
+                </form>
             </div>
-        </nav>
-        <div id="page-body" class="d-flex">
-            <div id="sidebar" class="bg-white">
-                <ul id="sidebar-menu">
-                    <li class="nav-link">
-                        <a href="~/Admin/Home/Index">
-                            <div class="nav-link-icon d-inline-flex">
-                                <i class="fa fa-home"></i>
-                            </div>
-                            Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-link active">
-                        <a href="~/Admin/Diary/Index">
-                            <div class="nav-link-icon d-inline-flex">
-                                <i class="fas fa-edit"></i>
-                            </div>
-                            Nhật ký
-                        </a>
-                        <i class="arrow fas fa-angle-right"></i>
-                        <ul class="sub-menu">
-                            <li><a href="newDiary.html">Thêm mới</a></li>
-                            <li><a href="~/Admin/Diary/Index">Danh sách</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-link">
-                        <a href="~/Admin/Work/Index">
-                            <div class="nav-link-icon d-inline-flex">
-                                <i class="far fa-bookmark"></i>
-                            </div>
-                            Công việc
-                        </a>
-                        <i class="arrow fas fa-angle-right"></i>
-                        <ul class="sub-menu">
-                            <li><a href="">Thêm mới</a></li>
-                            <li><a href="~/Admin/Work/Index">Danh sách</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-link">
-                        <a href="~/Admin/Product/Index">
-                            <div class="nav-link-icon d-inline-flex">
-                                <i class="fas fa-box-open"></i>
-                            </div>
-                            Sản phẩm
-                        </a>
-                        <i class="arrow fas fa-angle-right"></i>
-                        <ul class="sub-menu">
-                            <li><a href="">Thêm mới</a></li>
-                            <li><a href="~/Admin/Product/Index">Danh sách</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-link">
-                        <a href="~/Admin/Employee/Index">
-                            <div class="nav-link-icon d-inline-flex">
-                                <i class="fa fa-user"></i>
-                            </div>
-                            Công nhân
-                        </a>
-                        <i class="arrow fas fa-angle-right"></i>
-                        <ul class="sub-menu">
-                            <li><a href="">Thêm mới</a></li>
-                            <li><a href="~/Admin/Employee/Index">Danh sách</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-link">
-                        <a href="">
-                            <div class="nav-link-icon d-inline-flex">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            Thống kê
-                        </a>
-                    </li>
-                </ul>
+        </div>
+        <div class="card-body">
+            <div class="analytic">
+                <button type="submit" class="btn btn-success">Thêm mới</button>
             </div>
-            <div id="wp-content">
-                <div id="content" class="container-fluid">
-                    <div class="card">
-                        <div class="card-header font-weight-bold d-flex justify-content-between align-items-center"
-                             style="box-sizing: border-box">
-                            <h5 class="m-0 ">Danh sách công việc</h5>
-                            <div class="form-inline">
-                                <form action="">
-                                    <input type="" class="form-control form-search" name="keyword" autocomplete="off"
-                                           placeholder="Nhập tên công việc ...">
-                                    <button type="submit" class="btn btn-success">Tìm kiếm</button>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="analytic">
-                                <a href="">Tất cả (100)</a>
-                                <a href="">Làm chung (100)</a>
-                                <a href="">Làm riêng (100)</a>
-                            </div>
-                            <table class="table table-striped table-checkall">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">STT</th>
-                                        <th scope="col">Tên công việc</th>
-                                        <th scope="col">Sản lượng thực tế</th>
-                                        <th scope="col">Số lô sản phẩm</th>
-                                        <th scope="col">Sản phẩm</th>
-                                        <th scope="col">Tác vụ</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td scope="row">1</td>
-                                        <td>Đóng gói</td>
-                                        <td>100</td>
-                                        <td>1</td>
-                                        <td>Mỳ tôm</td>
-                                        <td>
-                                            <a href="" class="btn btn-success btn-sm rounded-0 text-white" type="button"
-                                               data-toggle="tooltip" data-placement="top" title="Chỉnh sửa">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="" class="btn btn-danger btn-sm rounded-0 text-white" type="button"
-                                               data-toggle="modal" data-placement="top" title="Xóa">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">2</td>
-                                        <td>Đóng gói</td>
-                                        <td>100</td>
-                                        <td>1</td>
-                                        <td>Mỳ tôm</td>
-                                        <td>
-                                            <a href="" class="btn btn-success btn-sm rounded-0 text-white" type="button"
-                                               data-toggle="tooltip" data-placement="top" title="Chỉnh sửa">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="" class="btn btn-danger btn-sm rounded-0 text-white" type="button"
-                                               data-toggle="modal" data-placement="top" title="Xóa">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">3</td>
-                                        <td>Đóng gói</td>
-                                        <td>100</td>
-                                        <td>1</td>
-                                        <td>Mỳ tôm</td>
-                                        <td>
-                                            <a href="" class="btn btn-success btn-sm rounded-0 text-white" type="button"
-                                               data-toggle="tooltip" data-placement="top" title="Chỉnh sửa">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="" class="btn btn-danger btn-sm rounded-0 text-white" type="button"
-                                               data-toggle="modal" data-placement="top" title="Xóa">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+            @if (Model != null)
+            {
+                var count = 0;
+                <table class="table table-striped table-checkall">
+                    <thead>
+                        <tr>
+                            <th scope="col">STT</th>
+                            <th scope="col">Tên công việc</th>
+                            <th scope="col">Định mức khoán</th>
+                            <th scope="col">Đơn vị khoán</th>
+                            <th scope="col">Hệ số khoán</th>
+                            <th scope="col">Định mức lao động</th>
+                            <th scope="col">Đơn giá</th>
+                            <th scope="col">Tác vụ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            count++;
+                        <tr>
+                            <td scope="row">@count</td>
+                            <td>@item.TenCongViec</td>
+                            <td>@item.DinhMucKhoan</td>
+                            <td>@item.DonViKhoan</td>
+                            <td>@item.HeSoKhoan</td>
+                            <td>@item.DinhMucLaoDong</td>
+                            <td>@item.DonGia</td>
+                            <td>
+                                <a href="" class="btn btn-success btn-sm rounded-0 text-white" type="button"
+                                   data-toggle="tooltip" data-placement="top" title="Chỉnh sửa">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a href="" class="btn btn-danger btn-sm rounded-0 text-white" type="button"
+                                   data-toggle="modal" data-placement="top" title="Xóa">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        }
+                        </tbody>
+                </table>
+            }
             </div>
         </div>
     </div>
