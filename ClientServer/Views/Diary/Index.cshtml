@@ -1,0 +1,188 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div id="content" class="container-fluid">
+    <div class="card">
+        <div class="card-header font-weight-bold d-flex justify-content-between align-items-center"
+             style="box-sizing: border-box">
+            <h5 class="m-0 ">Nhật Ký Làm Việc</h5>
+            <div class="form-inline">
+                <form action="">
+                    <select class="form-control" id="" name='cat'>
+                        <option value="">Năm</option>
+                        <option value="">2020</option>
+                        <option value="">2021</option>
+                    </select>
+                    <select class="form-control" id="" name='cat'>
+                        <option value="">Tháng</option>
+                        <option value="">1</option>
+                        <option value="">2</option>
+                    </select>
+                    <select class="form-control" id="" name='cat'>
+                        <option value="">Ngày</option>
+                        <option value="">1</option>
+                        <option value="">2</option>
+                    </select>
+                    <button type="submit" class="btn btn-success">Tìm kiếm</button>
+                </form>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="analytic">
+                <a href="">Tất cả (100)</a>
+                <a href="">Làm chung (100)</a>
+                <a href="">Làm riêng (100)</a>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">STT</th>
+                        <th scope="col">Mã nhật ký</th>
+                        <th scope="col">Ngày thực hiện</th>
+                        <th scope="col">Ca làm</th>
+                        <th scope="col">Chi tiết</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row">1</td>
+                        <td>1</td>
+                        <td>21/10/2021</td>
+                        <td>6h-14h</td>
+                        <td>
+                            <a href="~/diaryDetail/Index" class="btn btn-success btn-sm rounded-0 text-white" type="button"
+                               data-toggle="tooltip" data-placement="top" title="Chi tiết">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td scope="row">2</td>
+                        <td>2</td>
+                        <td>22/10/2021</td>
+                        <td>14h-22h</td>
+                        <td>
+                            <a href="diaryDetail.html" class="btn btn-success btn-sm rounded-0 text-white" type="button"
+                               data-toggle="tooltip" data-placement="top" title="Chi tiết">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td scope="row">3</td>
+                        <td>3</td>
+                        <td>23/10/2021</td>
+                        <td>6h-14h</td>
+                        <td>
+                            <a href="diaryDetail.html" class="btn btn-success btn-sm rounded-0 text-white" type="button"
+                               data-toggle="tooltip" data-placement="top" title="Chi tiết">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td scope="row">4</td>
+                        <td>4</td>
+                        <td>25/10/2021</td>
+                        <td>6h-14h</td>
+                        <td>
+                            <a href="diaryDetail.html" class="btn btn-success btn-sm rounded-0 text-white" type="button"
+                               data-toggle="tooltip" data-placement="top" title="Chi tiết">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td scope="row">5</td>
+                        <td>5</td>
+                        <td>26/10/2021</td>
+                        <td>6h-14h</td>
+                        <td>
+                            <a href="diaryDetail.html" class="btn btn-success btn-sm rounded-0 text-white" type="button"
+                               data-toggle="tooltip" data-placement="top" title="Chi tiết">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td scope="row">6</td>
+                        <td>6</td>
+                        <td>27/10/2021</td>
+                        <td>6h-14h</td>
+                        <td>
+                            <a href="diaryDetail.html" class="btn btn-success btn-sm rounded-0 text-white" type="button"
+                               data-toggle="tooltip" data-placement="top" title="Chi tiết">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td scope="row">7</td>
+                        <td>7</td>
+                        <td>28/10/2021</td>
+                        <td>14h-22h</td>
+                        <td>
+                            <a href="diaryDetail.html" class="btn btn-success btn-sm rounded-0 text-white" type="button"
+                               data-toggle="tooltip" data-placement="top" title="Chi tiết">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td scope="row">8</td>
+                        <td>8</td>
+                        <td>29/10/2021</td>
+                        <td>6h-14h</td>
+                        <td>
+                            <a href="diaryDetail.html" class="btn btn-success btn-sm rounded-0 text-white" type="button"
+                               data-toggle="tooltip" data-placement="top" title="Chi tiết">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td scope="row">9</td>
+                        <td>9</td>
+                        <td>30/10/2021</td>
+                        <td>6h-14h</td>
+                        <td>
+                            <a href="diaryDetail.html" class="btn btn-success btn-sm rounded-0 text-white" type="button"
+                               data-toggle="tooltip" data-placement="top" title="Chi tiết">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td scope="row">10</td>
+                        <td>10</td>
+                        <td>31/10/2021</td>
+                        <td>14h-22h</td>
+                        <td>
+                            <a href="diaryDetail.html" class="btn btn-success btn-sm rounded-0 text-white" type="button"
+                               data-toggle="tooltip" data-placement="top" title="Chi tiết">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+

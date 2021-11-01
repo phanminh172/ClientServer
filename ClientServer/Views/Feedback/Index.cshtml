@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="content" class="container-fluid">
+    <div class="card">
+        <div class="card-header font-weight-bold d-flex justify-content-between align-items-center"
+             style="box-sizing: border-box">
+            <h5 class="m-0 ">Góp ý với Quản trị</h5>
+        </div>
+        <div class="card-body">
+            <div class="Chatbox" id="myForm">
+                <form action="" class="form-container">
+
+                    <label for="msg"><b>Lời Nhắn </b></label>
+                    <textarea rows="9" cols="70" placeholder="Bạn hãy nhập lời nhắn.." name="msg" required></textarea>
+
+                    <button type="submit" class="btn">Gửi</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

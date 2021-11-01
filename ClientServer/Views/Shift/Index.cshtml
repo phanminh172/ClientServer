@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div id="content" class="container-fluid">
+    <div class="card">
+        <div class="card-header font-weight-bold d-flex justify-content-between align-items-center"
+             style="box-sizing: border-box">
+            <h5 class="m-0 ">Nhật Ký Làm Việc</h5>
+            <div class="form-inline">
+                <form action="">
+                    <button type="submit" class="btn btn-success">CHECK IN</button>
+                    <button type="submit" class="btn btn-success">CHECK OUT</button>
+                </form>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">STT</th>
+                        <th scope="col">Ca Làm</th>
+                        <th scope="col">Ngày</th>
+                        <th scope="col">Công Việc</th>
+                        <th scope="col">Công Nhân Làm Chung</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row">1</td>
+
+                        <td>6h-14h</td>
+                        <td>21/10/2021</td>
+                        <td>Đóng gói</td>
+                        <td>
+                            <a href="~/shiftDetail/Index" class="btn btn-success btn-sm rounded-0 text-white" type="button"
+                               data-toggle="tooltip" data-placement="top" title="Chi tiết">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td scope="row">1</td>
+                        <td>6h-14h</td>
+                        <td>21/10/2021</td>
+                        <td>Sản Xuất</td>
+                        <td>
+                            <a href="~/shiftDetail/Index" class="btn btn-success btn-sm rounded-0 text-white" type="button"
+                               data-toggle="tooltip" data-placement="top" title="Chi tiết">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
