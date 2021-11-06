@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClientServer.Models.DAO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,9 @@ namespace ClientServer.Areas.Admin.Controllers
         // GET: Admin/Employee
         public ActionResult Index()
         {
-            return View();
+            var employeeDAO = new EmployeeDAO();
+            var employeeList = employeeDAO.ListAll();
+            return View(employeeList);
         }
     }
 }
