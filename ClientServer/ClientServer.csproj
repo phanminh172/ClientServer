@@ -150,7 +150,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DAO\AccountDAO.cs" />
+    <Compile Include="Models\DAO\DiaryDAO.cs" />
+    <Compile Include="Models\DAO\EmployeeDAO.cs" />
     <Compile Include="Models\DAO\ProductDAO.cs" />
+    <Compile Include="Models\DAO\WorkDAO.cs" />
     <Compile Include="Models\EntityFramework\Account.cs" />
     <Compile Include="Models\EntityFramework\ClientServerDbContext.cs" />
     <Compile Include="Models\EntityFramework\DanhMucCongNhanThucHienKhoan.cs" />

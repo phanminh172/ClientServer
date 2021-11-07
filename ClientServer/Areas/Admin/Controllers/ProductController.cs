@@ -12,9 +12,9 @@ namespace ClientServer.Areas.Admin.Controllers
         // GET: Admin/Product
         public ActionResult Index()
         {
-            var iplCate = new ProductDAO();
-            var model = iplCate.ListAll();
-            return View(model);
+            var productDAO = new ProductDAO();
+            var productList = productDAO.ListAll();
+            return View(productList);
         }
 
         // GET: Admin/Product/Details/5
