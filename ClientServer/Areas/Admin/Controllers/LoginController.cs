@@ -1,4 +1,6 @@
-﻿using ClientServer.Areas.Admin.Models;
+﻿using ClientServer.Areas.Admin.Code;
+using ClientServer.Areas.Admin.Models;
+using ClientServer.Models.DAO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,19 +22,43 @@ namespace ClientServer.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Index(LoginModel model)
         {
-            //var result = new AccountModel().Login(model.UserName, model.Password);
-            if (Membership.ValidateUser(model.UserName, model.Password) && ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                //SessionHelper.SetSession(new UserSession() { UserName = model.UserName });
-                FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
-                return RedirectToAction("Index", "Home");
+                var dao = new AccountDAO();
+                var result = dao.Login(model.UserName, Encryptor.MD5Hash(model.Password), true);
+                if (result == 1)
+                {
+                    var user = dao.GetById(model.UserName);
+                    var userSession = new UserSession();
+                    userSession.UserName = user.UserName;
+                    userSession.UserID = user.ID;
+                    userSession.GroupID = user.GroupID;
+                   
+                    Session.Add(SessionHelper.USER_SESSION, userSession);
+                    return RedirectToAction("Index", "Home");
+                }
+                else if (result == 0)
+                {
+                    ModelState.AddModelError("", "Tài khoản không tồn tại.");
+                }
+                else if (result == -1)
+                {
+                    ModelState.AddModelError("", "Tài khoản đang bị khoá.");
+                }
+                else if (result == -2)
+                {
+                    ModelState.AddModelError("", "Mật khẩu không đúng.");
+                }
+                else if (result == -3)
+                {
+                    ModelState.AddModelError("", "Tài khoản của bạn không có quyền đăng nhập.");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "đăng nhập không đúng.");
+                }
             }
-            else
-            {
-                ModelState.AddModelError("", "Invalid username or password");
-
-            }
-            return View(model);
+            return View("Index");
         }
         public ActionResult Logout()
         {

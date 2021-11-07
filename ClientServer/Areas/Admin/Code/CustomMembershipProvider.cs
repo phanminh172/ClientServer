@@ -109,7 +109,8 @@ namespace ClientServer.Areas.Admin.Code
 
         public override bool ValidateUser(string username, string password)
         {
-            return new AccountDAO().Login(username, password);
+            throw new NotImplementedException();
+            //return new AccountDAO().Login(username, password);
         }
     }
 }

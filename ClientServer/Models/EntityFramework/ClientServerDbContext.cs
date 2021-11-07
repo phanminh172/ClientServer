@@ -20,6 +20,7 @@ namespace ClientServer.Models.EntityFramework
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<ThongTinCongNhan> ThongTinCongNhans { get; set; }
         public virtual DbSet<ThongTinSanPham> ThongTinSanPhams { get; set; }
+        public virtual DbSet<UserGroup> UserGroups { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -29,6 +30,10 @@ namespace ClientServer.Models.EntityFramework
 
             modelBuilder.Entity<Account>()
                 .Property(e => e.Password)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Account>()
+                .Property(e => e.GroupID)
                 .IsUnicode(false);
 
             modelBuilder.Entity<DanhMucCongViec>()
@@ -58,6 +63,14 @@ namespace ClientServer.Models.EntityFramework
             modelBuilder.Entity<ThongTinSanPham>()
                 .Property(e => e.SoDangKy)
                 .IsFixedLength();
+
+            modelBuilder.Entity<UserGroup>()
+                .Property(e => e.ID)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<UserGroup>()
+                .Property(e => e.Name)
+                .IsUnicode(false);
         }
     }
 }

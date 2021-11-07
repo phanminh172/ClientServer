@@ -9,11 +9,19 @@ namespace ClientServer.Models.EntityFramework
     [Table("Account")]
     public partial class Account
     {
-        [Key]
+       
         [StringLength(50)]
         public string UserName { get; set; }
 
         [StringLength(50)]
         public string Password { get; set; }
+
+        [Key]
+        public int ID { get; set; }
+
+        [StringLength(50)]
+        public string GroupID { get; set; }
+
+        public bool Status { get; set; }
     }
 }

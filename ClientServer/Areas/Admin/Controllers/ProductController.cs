@@ -1,4 +1,5 @@
 ﻿using ClientServer.Models.DAO;
+using ClientServer.Models.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,13 +32,27 @@ namespace ClientServer.Areas.Admin.Controllers
 
         // POST: Admin/Product/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(ThongTinSanPham collection)
         {
             try
             {
+                if (ModelState.IsValid)
+                {
+                    var model = new ProductDAO();
+                    int res = model.Create(collection.TenSanPham, collection.SoDangKy, collection.HanSuDung, collection.QuyCach, collection.NgayDangKy);
+                    if (res > 0)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("","Error when add new item");
+                    }
+                }
                 // TODO: Add insert logic here
 
-                return RedirectToAction("Index");
+                return View(collection);
             }
             catch
             {

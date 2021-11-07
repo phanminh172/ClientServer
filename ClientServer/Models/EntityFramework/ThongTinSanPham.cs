@@ -16,7 +16,6 @@ namespace ClientServer.Models.EntityFramework
         }
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int MaSanPham { get; set; }
 
         [StringLength(1024)]
