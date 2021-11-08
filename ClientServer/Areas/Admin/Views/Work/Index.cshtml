@@ -19,7 +19,9 @@
         </div>
         <div class="card-body">
             <div class="analytic">
-                <button type="submit" class="btn btn-success">Thêm mới</button>
+                <a href="">Tất cả (100)</a>
+                <a href="">Làm chung (100)</a>
+                <a href="">Làm riêng (100)</a>
             </div>
             @if (Model != null)
             {
@@ -41,29 +43,29 @@
                         @foreach (var item in Model)
                         {
                             count++;
-                        <tr>
-                            <td scope="row">@count</td>
-                            <td>@item.TenCongViec</td>
-                            <td>@item.DinhMucKhoan</td>
-                            <td>@item.DonViKhoan</td>
-                            <td>@item.HeSoKhoan</td>
-                            <td>@item.DinhMucLaoDong</td>
-                            <td>@item.DonGia</td>
-                            <td>
-                                <a href="" class="btn btn-success btn-sm rounded-0 text-white" type="button"
-                                   data-toggle="tooltip" data-placement="top" title="Chỉnh sửa">
-                                    <i class="fa fa-edit"></i>
-                                </a>
-                                <a href="" class="btn btn-danger btn-sm rounded-0 text-white" type="button"
-                                   data-toggle="modal" data-placement="top" title="Xóa">
-                                    <i class="fa fa-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td scope="row">@count</td>
+                                <td>@item.TenCongViec</td>
+                                <td>@item.DinhMucKhoan</td>
+                                <td>@item.DonViKhoan</td>
+                                <td>@item.HeSoKhoan</td>
+                                <td>@item.DinhMucLaoDong</td>
+                                <td>@item.DonGia</td>
+                                <td>
+                                    <a href="" class="btn btn-success btn-sm rounded-0 text-white" type="button"
+                                       data-toggle="tooltip" data-placement="top" title="Chỉnh sửa">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a href="" class="btn btn-danger btn-sm rounded-0 text-white" type="button"
+                                       data-toggle="modal" data-placement="top" title="Xóa">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
                         }
-                        </tbody>
+                    </tbody>
                 </table>
             }
-            </div>
+        </div>
     </div>
 </div>
