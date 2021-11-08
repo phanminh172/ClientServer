@@ -107,5 +107,27 @@ namespace ClientServer.Models.DAO
         {
             return context.Accounts.Find(id);
         }
+        public bool Update(Account entity)
+        {
+            try
+            {
+                var user = context.Accounts.Find(entity.ID);
+                user.UserName = entity.UserName;
+                if (!string.IsNullOrEmpty(entity.Password))
+                {
+                    user.Password = entity.Password;
+                }
+                user.GroupID = entity.GroupID;
+                user.Status = entity.Status;
+                context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //logging
+                return false;
+            }
+
+        }
     }
 }

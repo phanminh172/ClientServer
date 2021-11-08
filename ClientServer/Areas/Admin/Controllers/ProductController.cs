@@ -63,23 +63,30 @@ namespace ClientServer.Areas.Admin.Controllers
         // GET: Admin/Product/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var product = new ProductDAO().ViewDetail(id);
+            return View(product);
         }
 
         // POST: Admin/Product/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, ThongTinSanPham collection)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
+                var dao = new ProductDAO();
+              
+                var result = dao.Update(collection);
+                if (result)
+                {
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index", "User");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Cập nhật user không thành công");
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return View("Index");
         }
 
         // GET: Admin/Product/Delete/5
