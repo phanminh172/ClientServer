@@ -50,8 +50,8 @@ namespace ClientServer.Models.DAO
                 product.TenSanPham = entity.TenSanPham;
                 product.SoDangKy = entity.SoDangKy;
                 product.QuyCach = entity.QuyCach;
-                product.HanSuDung = entity.HanSuDung;
-                product.NgayDangKy = entity.NgayDangKy;
+                //product.HanSuDung = entity.HanSuDung;
+                //product.NgayDangKy = entity.NgayDangKy;
                 context.SaveChanges();
                 return true;
             }

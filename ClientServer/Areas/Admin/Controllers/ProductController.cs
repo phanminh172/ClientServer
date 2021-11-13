@@ -69,7 +69,7 @@ namespace ClientServer.Areas.Admin.Controllers
 
         // POST: Admin/Product/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, ThongTinSanPham collection)
+        public ActionResult Edit(ThongTinSanPham collection)
         {
             if (ModelState.IsValid)
             {
@@ -79,11 +79,11 @@ namespace ClientServer.Areas.Admin.Controllers
                 if (result)
                 {
 
-                    return RedirectToAction("Index", "User");
+                    return RedirectToAction("Index", "Product");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Cập nhật user không thành công");
+                    ModelState.AddModelError("", "Cập nhật sản phẩm không thành công");
                 }
             }
             return View("Index");
