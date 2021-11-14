@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ClientServer.Models.EntityFramework.ThongTinCongNhan>
+﻿@model PagedList.IPagedList<ClientServer.Models.EntityFramework.ThongTinCongNhan>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Index";
@@ -11,11 +12,12 @@
              style="box-sizing: border-box">
             <h5 class="m-0 ">Danh sách công nhân</h5>
             <div class="form-inline">
-                <form action="">
-                    <input type="" class="form-control form-search" name="keyword" autocomplete="off"
-                           placeholder="Nhập tên công nhân ...">
+                @using (Html.BeginForm("Index", "Employee", FormMethod.Get))
+                {
+                    <input type="" class="form-control form-search" name="searchString" autocomplete="off"
+                           placeholder="Nhập tên công nhân ..." value="@ViewBag.searchString">
                     <button type="submit" class="btn btn-success">Tìm kiếm</button>
-                </form>
+                }
             </div>
         </div>
         @if (TempData["thongbao"] != null)
@@ -71,7 +73,7 @@
                                        data-placement="top" title="Xóa">
                                         <i class="fa fa-trash delete-btn"></i>
                                     </a>
-                                    
+
                                     <div class="modal fade" id="deleteModal-@item.MaCongNhan" tabindex="-1"
                                          role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
@@ -102,6 +104,9 @@
                         }
                     </tbody>
                 </table>
+                <div class="pagination" style="float: right;">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchString = ViewBag.searchString }))
+                </div>
             }
         </div>
     </div>

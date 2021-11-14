@@ -11,10 +11,11 @@ namespace ClientServer.Areas.Admin.Controllers
     public class WorkController : Controller
     {
         // GET: Admin/Work
-        public ActionResult Index()
+        public ActionResult Index(String searchString, int page = 1, int pageSize = 5)
         {
             var workDAO = new WorkDAO();
-            var workList = workDAO.ListAll();
+            var workList = workDAO.ListAll(searchString, page, pageSize);
+            ViewBag.searchString = searchString;
             return View(workList);
         }
         public ActionResult Create()

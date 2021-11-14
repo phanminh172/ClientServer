@@ -48,8 +48,6 @@ namespace ClientServer.Areas.Admin.Controllers
         public ActionResult Update(int id)
         {
             var dao = new ProductDAO();
-
-            //Lấy ra đối tượng sp theo mã
             ThongTinSanPham Product = dao.GetById(id);
             if (Product == null)
             {

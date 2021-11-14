@@ -11,10 +11,11 @@ namespace ClientServer.Areas.Admin.Controllers
     public class EmployeeController : Controller
     {
         // GET: Admin/Employee
-        public ActionResult Index()
+        public ActionResult Index(String searchString, int page = 1, int pageSize = 5)
         {
             var employeeDAO = new EmployeeDAO();
-            var employeeList = employeeDAO.ListAll();
+            var employeeList = employeeDAO.ListAll(searchString, page, pageSize);
+            ViewBag.searchString = searchString;
             return View(employeeList);
         }
         public ActionResult Create()
