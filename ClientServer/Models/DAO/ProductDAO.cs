@@ -34,9 +34,9 @@ namespace ClientServer.Models.DAO
             int res = context.Database.ExecuteSqlCommand("Sp_Product_Insert @TenSanPham, @SoDangKy, @HanSuDung, @QuyCach, @NgayDangKy", parameters);
             return res;
         }
-        public ThongTinSanPham GetById(string productName)
+        public ThongTinSanPham GetById(int productId)
         {
-            return context.ThongTinSanPhams.SingleOrDefault(x => x.TenSanPham == productName);
+            return context.ThongTinSanPhams.SingleOrDefault(x => x.MaSanPham == productId);
         }
         public ThongTinSanPham ViewDetail(int id)
         {

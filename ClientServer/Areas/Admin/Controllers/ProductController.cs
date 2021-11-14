@@ -59,24 +59,36 @@ namespace ClientServer.Areas.Admin.Controllers
                 return View();
             }
         }
-
+        [HttpGet]
         // GET: Admin/Product/Edit/5
         public ActionResult Edit(int id)
         {
-            var product = new ProductDAO().ViewDetail(id);
+            //var product = new ProductDAO().GetById(id);
+            //return View(product);
+
+            var dao = new ProductDAO();
+
+            //Lấy ra đối tượng sp theo mã
+            ThongTinSanPham product = dao.GetById(id);
+            if (product == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
             return View(product);
         }
 
         // POST: Admin/Product/Edit/5
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(ThongTinSanPham collection)
         {
             if (ModelState.IsValid)
             {
                 var dao = new ProductDAO();
               
-                var result = dao.Update(collection);
-                if (result)
+                //var result = dao.Update(collection);
+                if (dao.Update(collection) == true)
                 {
 
                     return RedirectToAction("Index", "Product");
@@ -86,7 +98,7 @@ namespace ClientServer.Areas.Admin.Controllers
                     ModelState.AddModelError("", "Cập nhật sản phẩm không thành công");
                 }
             }
-            return View("Index");
+            return View(collection);
         }
 
         // GET: Admin/Product/Delete/5
