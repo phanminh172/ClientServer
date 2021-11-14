@@ -17,9 +17,9 @@ namespace ClientServer.Models.EntityFramework
 
         public int MaCongNhan { get; set; }
 
-        public DateTime? ThoiGianBatDauCongViec { get; set; }
+        public TimeSpan? ThoiGianBatDauCongViec { get; set; }
 
-        public DateTime? ThoiGianKetThucCongViec { get; set; }
+        public TimeSpan? ThoiGianKetThucCongViec { get; set; }
 
         public virtual NhatKiSanLuongKhoan NhatKiSanLuongKhoan { get; set; }
 

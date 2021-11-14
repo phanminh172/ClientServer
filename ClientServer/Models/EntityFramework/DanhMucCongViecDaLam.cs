@@ -21,7 +21,7 @@ namespace ClientServer.Models.EntityFramework
 
         public int? SoLoSanPham { get; set; }
 
-        public int? MaSanPham { get; set; }
+        public int MaSanPham { get; set; }
 
         public virtual DanhMucCongViec DanhMucCongViec { get; set; }
 

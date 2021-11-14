@@ -1,0 +1,119 @@
+﻿
+@model dynamic
+@{
+    ViewBag.Title = "Chi tiết nhật ký";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var emloyeeIndex = 0;
+    var workIndex = 0;
+}
+
+<div id="content" class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Thông tin nhật ký</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="title">
+                                <i class="fas fa-barcode text-primary mr-1"></i>
+                                <strong>Ngày thực hiện</strong>
+                            </div>
+                            <div class="content mt-2">
+                                @Model.Diary.NgayThucHien.ToString("dd/MM/yyyy")
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="title">
+                                <i class="fas fa-cash-register text-primary mr-1"></i>
+                                <strong>Ca làm</strong>
+                            </div>
+                            <div class="content mt-2">
+                                @Model.Diary.GioBatDau - @Model.Diary.GioKetThuc
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Danh sách công nhân làm việc</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped table-checkall">
+                        <thead>
+                            <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col">Mã công nhân</th>
+                                <th scope="col">Tên công nhân</th>
+                                <th scope="col">Thời gian bắt đầu</th>
+                                <th scope="col">Thời gian kết thúc</th>
+                            </tr>
+                        </thead>
+                        <tbody>   
+                            @foreach (var e in Model.EmployeeList)
+                            {
+                                String HoTen = Model.EmployeeNameList[emloyeeIndex].Hoten;
+                                emloyeeIndex++;
+                                <tr>
+                                    <td scope="row">@emloyeeIndex</td>
+                                    <td>@e.MaCongNhan</td>
+                                    <td>@HoTen</td>
+                                    <td>@e.ThoiGianBatDauCongViec</td>
+                                    <td>@e.ThoiGianKetThucCongViec</td>
+                                </tr>
+                            }
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Danh sách công việc đã làm</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped table-checkall">
+                        <thead>
+                            <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col">Tên công việc</th>
+                                <th scope="col">Sản lượng thực tế</th>
+                                <th scope="col">Số lô sản phẩm</th>
+                                <th scope="col">Sản phẩm</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var c in Model.WorkList)
+                            {
+                                String TenCV = Model.WorkNameList[workIndex].TenCongViec;
+                                String TenSp = Model.ProductNameList[workIndex].TenSanPham;
+                                workIndex++;
+                                <tr>
+                                    <td scope="row">@workIndex</td>
+                                    <td>@TenCV</td>
+                                    <td>@c.SanLuongThucTe</td>
+                                    <td>@c.SoLoSanPham</td>
+                                    <td>@TenSp</td>
+                                </tr>
+                            }
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

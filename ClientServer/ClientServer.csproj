@@ -203,6 +203,7 @@
     <Content Include="Areas\Admin\Views\Product\Update.cshtml" />
     <Content Include="Areas\Admin\Views\Work\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Work\Update.cshtml" />
+    <Content Include="Areas\Admin\Views\Diary\Detail.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
