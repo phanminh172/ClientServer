@@ -17,6 +17,15 @@
                 </form>
             </div>
         </div>
+        @if (TempData["thongbao"] != null)
+        {
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <strong>@TempData["thongbao"]</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
         <div class="card-body">
             <div class="analytic">
                 <a href="">Tất cả (100)</a>
@@ -52,14 +61,41 @@
                                 <td>@item.DinhMucLaoDong</td>
                                 <td>@item.DonGia</td>
                                 <td>
-                                    <a href="" class="btn btn-success btn-sm rounded-0 text-white" type="button"
+                                    <a href="/Admin/Work/Update/@item.MaCongViec" class="btn btn-success btn-sm rounded-0 text-white" type="button"
                                        data-toggle="tooltip" data-placement="top" title="Chỉnh sửa">
                                         <i class="fa fa-edit"></i>
                                     </a>
-                                    <a href="" class="btn btn-danger btn-sm rounded-0 text-white" type="button"
-                                       data-toggle="modal" data-placement="top" title="Xóa">
-                                        <i class="fa fa-trash"></i>
+                                    <a class="btn btn-danger btn-sm rounded-0 text-white" type="button"
+                                       data-toggle="modal" data-target="#deleteModal-@item.MaCongViec"
+                                       data-placement="top" title="Xóa">
+                                        <i class="fa fa-trash delete-btn"></i>
                                     </a>
+
+                                    <div class="modal fade" id="deleteModal-@item.MaCongViec" tabindex="-1"
+                                         role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modalLabel">Xóa công việc</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Bạn chắc chắn muốn xóa ?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-dark"
+                                                            data-dismiss="modal">
+                                                        Hủy
+                                                    </button>
+                                                    <a href="/Admin/Work/Delete/@item.MaCongViec"
+                                                       name="deleteData" class="btn btn-danger">Xác nhận</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         }

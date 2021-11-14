@@ -1,17 +1,17 @@
 ﻿@model ClientServer.Models.EntityFramework.ThongTinSanPham
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Update";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
 <div id="content" class="container-fluid">
     <div class="card">
         <div class="card-header font-weight-bold">
-            Thêm sản phẩm
+            Chỉnh sửa sản phẩm
         </div>
         <div class="card-body">
-            @using (Html.BeginForm("Create", "Product", FormMethod.Post))
+            @using (Html.BeginForm("Update", "Product", FormMethod.Post))
             {
                 if (TempData["thongbao"] != null)
                 {
@@ -25,6 +25,13 @@
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MaSanPham, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.MaSanPham, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.MaSanPham, "", new { @class = "text-danger font-italic" })
+                    </div>
+                </div>
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.TenSanPham, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -68,10 +75,11 @@
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="thêm mới" class="btn btn-success" />
+                        <input type="submit" value="Cập nhật" class="btn btn-success" />
                     </div>
                 </div>
             }
         </div>
     </div>
 </div>
+

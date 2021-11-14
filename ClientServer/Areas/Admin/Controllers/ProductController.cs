@@ -1,4 +1,5 @@
 ﻿using ClientServer.Models.DAO;
+using ClientServer.Models.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,83 +11,86 @@ namespace ClientServer.Areas.Admin.Controllers
     public class ProductController : Controller
     {
         // GET: Admin/Product
-        public ActionResult Index()
+        public ActionResult Index(String searchString,int page = 1, int pageSize = 5)
         {
             var productDAO = new ProductDAO();
-            var productList = productDAO.ListAll();
+            var productList = productDAO.ListAll(searchString, page, pageSize);
+            ViewBag.searchString = searchString;
             return View(productList);
         }
 
-        // GET: Admin/Product/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Admin/Product/Create
         public ActionResult Create()
         {
             return View();
         }
-
-        // POST: Admin/Product/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(ThongTinSanPham Product)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                var dao = new ProductDAO();
+                int id = dao.Insert(Product);
+                if (id > 0)
+                {
+                    TempData["thongbao"] = "Thêm mới sản phẩm thành công!";
+                    return RedirectToAction("Index", "Product");
+                }
+                else
+                {
+                    TempData["thongbao"] = "Thêm sản phẩm thất bại";
+                }
             }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Admin/Product/Edit/5
-        public ActionResult Edit(int id)
-        {
             return View();
         }
 
-        // POST: Admin/Product/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [HttpGet]
+        public ActionResult Update(int id)
         {
-            try
-            {
-                // TODO: Add update logic here
+            var dao = new ProductDAO();
 
-                return RedirectToAction("Index");
-            }
-            catch
+            //Lấy ra đối tượng sp theo mã
+            ThongTinSanPham Product = dao.GetById(id);
+            if (Product == null)
             {
-                return View();
+                Response.StatusCode = 404;
+                return null;
             }
+            return View(Product);
         }
 
-        // GET: Admin/Product/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Update(ThongTinSanPham Product)
+        {
+            //Thêm vào CSDL
+            if (ModelState.IsValid)
+            {
+                var dao = new ProductDAO();
+                if (dao.Update(Product) == true)
+                {
+                    TempData["thongbao"] = "Chỉnh sửa thành công!";
+                    return RedirectToAction("Index", "Product");
+                }
+                else
+                {
+                    TempData["thongbao"] = "Chỉnh sửa thất bại!!";
+                }
+            }
+            return View(Product);
+        }
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: Admin/Product/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
+            var dao = new ProductDAO();
+            if (dao.Delete(id) == true)
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                TempData["thongbao"] = "Xóa thành công!";
             }
-            catch
+            else
             {
-                return View();
+                TempData["thongbao"] = "Xóa thất bại!!";
             }
+            return RedirectToAction("Index");
         }
     }
 }

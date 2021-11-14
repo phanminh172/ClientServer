@@ -8,7 +8,7 @@
 <div id="content" class="container-fluid">
     <div class="card">
         <div class="card-header font-weight-bold">
-            Thêm công nhân
+            Chỉnh sửa công nhân
         </div>
         <div class="card-body">
             @using (Html.BeginForm("Update", "Employee", FormMethod.Post))
@@ -28,14 +28,14 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.MaCongNhan, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-6">
-                        @Html.EditorFor(model => model.MaCongNhan, new { @class = "form-control" })
+                        @Html.EditorFor(model => model.MaCongNhan, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                         @Html.ValidationMessageFor(model => model.MaCongNhan, "", new { @class = "text-danger font-italic" })
                     </div>
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(model => model.Hoten, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-6">
-                        @Html.EditorFor(model => model.Hoten, new { htmlAttributes = new { @class = "form-control"}})
+                        @Html.EditorFor(model => model.Hoten, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                         @Html.ValidationMessageFor(model => model.Hoten, "", new { @class = "text-danger font-italic" })
                     </div>
                 </div>
