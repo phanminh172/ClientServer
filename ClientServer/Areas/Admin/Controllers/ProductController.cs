@@ -11,31 +11,23 @@ namespace ClientServer.Areas.Admin.Controllers
     public class ProductController : Controller
     {
         // GET: Admin/Product
-        public ActionResult Index()
+        public ActionResult Index(String searchString,int page = 1, int pageSize = 5)
         {
             var productDAO = new ProductDAO();
-            var productList = productDAO.ListAll();
+            var productList = productDAO.ListAll(searchString, page, pageSize);
+            ViewBag.searchString = searchString;
             return View(productList);
         }
 
-        // GET: Admin/Product/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Admin/Product/Create
         public ActionResult Create()
         {
             return View();
         }
-
-        // POST: Admin/Product/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ThongTinSanPham collection)
         {
-            try
+            if (ModelState.IsValid)
             {
                 if (ModelState.IsValid)
                 {
@@ -78,7 +70,6 @@ namespace ClientServer.Areas.Admin.Controllers
             return View(product);
         }
 
-        // POST: Admin/Product/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ThongTinSanPham collection)
@@ -100,27 +91,18 @@ namespace ClientServer.Areas.Admin.Controllers
             }
             return View(collection);
         }
-
-        // GET: Admin/Product/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: Admin/Product/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
+            var dao = new ProductDAO();
+            if (dao.Delete(id) == true)
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                TempData["thongbao"] = "Xóa thành công!";
             }
-            catch
+            else
             {
-                return View();
+                TempData["thongbao"] = "Xóa thất bại!!";
             }
+            return RedirectToAction("Index");
         }
     }
 }

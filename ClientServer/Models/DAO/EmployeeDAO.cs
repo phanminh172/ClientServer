@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using PagedList;
 
 namespace ClientServer.Models.DAO
 {
@@ -13,10 +14,14 @@ namespace ClientServer.Models.DAO
         {
             context = new ClientServerDbContext();
         }
-        public List<ThongTinCongNhan> ListAll()
+        public IEnumerable<ThongTinCongNhan> ListAll(String searchString, int page, int pageSize)
         {
-            var list = context.ThongTinCongNhans.ToList();
-            return list;
+            if (searchString != null)
+            {
+                List<ThongTinCongNhan> listKQ = context.ThongTinCongNhans.Where(n => n.Hoten.Contains(searchString)).ToList();
+                return listKQ.OrderBy(x => x.MaCongNhan).ToPagedList(page, pageSize);
+            }
+            return (context.ThongTinCongNhans.OrderBy(x => x.MaCongNhan).ToPagedList(page, pageSize));
         }
 
         public int Insert(ThongTinCongNhan employee)
