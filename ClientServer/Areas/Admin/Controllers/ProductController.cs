@@ -27,7 +27,7 @@ namespace ClientServer.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(ThongTinSanPham collection)
         {
-            if (ModelState.IsValid)
+            try
             {
                 if (ModelState.IsValid)
                 {

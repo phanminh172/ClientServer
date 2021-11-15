@@ -81,34 +81,34 @@ namespace ClientServer.Models.DAO
             int res = context.Database.ExecuteSqlCommand("Sp_Product_Insert @TenSanPham, @SoDangKy, @HanSuDung, @QuyCach, @NgayDangKy", parameters);
             return res;
         }
-        public ThongTinSanPham GetById(int productId)
-        {
-            return context.ThongTinSanPhams.SingleOrDefault(x => x.MaSanPham == productId);
-        }
+        //public ThongTinSanPham GetById(int productId)
+        //{
+        //    return context.ThongTinSanPhams.SingleOrDefault(x => x.MaSanPham == productId);
+        //}
         public ThongTinSanPham ViewDetail(int id)
         {
             return context.ThongTinSanPhams.Find(id);
         }
-        public bool Update(ThongTinSanPham entity)
-        {
-            try
-            {
-                var product = context.ThongTinSanPhams.Find(entity.MaSanPham);
-                product.TenSanPham = entity.TenSanPham;
-                product.SoDangKy = entity.SoDangKy;
-                product.QuyCach = entity.QuyCach;
-                //product.HanSuDung = entity.HanSuDung;
-                //product.NgayDangKy = entity.NgayDangKy;
-                context.SaveChanges();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                //logging
-                return false;
-            }
+        //public bool Update(ThongTinSanPham entity)
+        //{
+        //    try
+        //    {
+        //        var product = context.ThongTinSanPhams.Find(entity.MaSanPham);
+        //        product.TenSanPham = entity.TenSanPham;
+        //        product.SoDangKy = entity.SoDangKy;
+        //        product.QuyCach = entity.QuyCach;
+        //        //product.HanSuDung = entity.HanSuDung;
+        //        //product.NgayDangKy = entity.NgayDangKy;
+        //        context.SaveChanges();
+        //        return true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        //logging
+        //        return false;
+        //    }
 
-        }
+        //}
 
 
     }
