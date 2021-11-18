@@ -64,7 +64,10 @@ namespace ClientServer.Models.DAO
             {
                 return false;
             }
-
+        }
+        public List<ThongTinSanPham> DropDownList()
+        {
+            return context.ThongTinSanPhams.ToList();
         }
     }
 }

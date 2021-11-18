@@ -4,29 +4,34 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Web;
+using PagedList;
 
 namespace ClientServer.Models.DAO
 {
     public class DiaryDAO
     {
         private ClientServerDbContext context = null;
-
-        private List<ThongTinCongNhan> employeeNameList = null;
-
-        private List<DanhMucCongViec> workNameList = null;
-
-        private List<ThongTinSanPham> productNameList = null;
         public DiaryDAO()
         {
             context = new ClientServerDbContext();
-            employeeNameList = new List<ThongTinCongNhan>();
-            workNameList = new List<DanhMucCongViec>();
-            productNameList = new List<ThongTinSanPham>();
         }
-        public List<NhatKiSanLuongKhoan> ListAll()
+
+        public IEnumerable<NhatKiSanLuongKhoan> ListAll(int page, int pageSize)
         {
-            var list = context.NhatKiSanLuongKhoans.ToList();
-            return list;
+            return (context.NhatKiSanLuongKhoans.OrderByDescending(x => x.NgayThucHien).ToPagedList(page, pageSize));
+        }
+
+        public IEnumerable<NhatKiSanLuongKhoan> ListByDate(DateTime search, int page, int pageSize)
+        {
+            List<NhatKiSanLuongKhoan> listKQ = context.NhatKiSanLuongKhoans.Where(n => DateTime.Compare(search, n.NgayThucHien) == 0).ToList();
+            return listKQ.OrderByDescending(x => x.NgayThucHien).ToPagedList(page, pageSize);
+        }
+
+        public int Insert(NhatKiSanLuongKhoan diary)
+        {
+            context.NhatKiSanLuongKhoans.Add(diary);
+            context.SaveChanges();
+            return diary.MaNhatKi;
         }
 
         public ExpandoObject GetById(int id)
@@ -39,35 +44,49 @@ namespace ClientServer.Models.DAO
             List<DanhMucCongNhanThucHienKhoan> employeeList =
                 context.DanhMucCongNhanThucHienKhoans.Where(n => n.MaNhatKi == id).ToList();
 
-            // danh sách tên công nhân của nhật ký
-            foreach (DanhMucCongNhanThucHienKhoan e in employeeList)
-            {
-                var employeeDAO = new EmployeeDAO();
-                ThongTinCongNhan employee = employeeDAO.GetById(e.MaCongNhan);
-                employeeNameList.Add(employee);
-            }
-
             // danh sách công việc của nhật ký
             List<DanhMucCongViecDaLam> workList = 
                 context.DanhMucCongViecDaLams.Where(x => x.MaNhatKi == id).ToList();
 
-            // danh sách tên công việc của nhật ký + tên sản phẩm công việc đó thực hiện
-            foreach (DanhMucCongViecDaLam c in workList)
-            {
-                var workDAO = new WorkDAO();
-                var productDAO = new ProductDAO();
-                DanhMucCongViec employee = workDAO.GetById(c.MaCongViec);
-                ThongTinSanPham product = productDAO.GetById(c.MaSanPham);
-                workNameList.Add(employee);
-                productNameList.Add(product);
-            }
-
             mymodel.EmployeeList = employeeList;
-            mymodel.EmployeeNameList = employeeNameList;
             mymodel.WorkList = workList;
-            mymodel.WorkNameList = workNameList;
-            mymodel.ProductNameList = productNameList;
             return mymodel;
+        }
+
+        public NhatKiSanLuongKhoan FindById(int id)
+        {
+            return context.NhatKiSanLuongKhoans.SingleOrDefault(x => x.MaNhatKi == id);
+        }
+
+        public bool Update(NhatKiSanLuongKhoan entity)
+        {
+            try
+            {
+                var diary = context.NhatKiSanLuongKhoans.Find(entity.MaNhatKi);
+                diary.NgayThucHien = entity.NgayThucHien;
+                diary.GioBatDau = entity.GioBatDau;
+                diary.GioKetThuc = entity.GioKetThuc;
+                context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public bool Delete(int id)
+        {
+            try
+            {
+                var diary = context.NhatKiSanLuongKhoans.Find(id);
+                context.NhatKiSanLuongKhoans.Remove(diary);
+                context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

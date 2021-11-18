@@ -158,8 +158,10 @@
     <Compile Include="Models\DAO\AccountDAO.cs" />
     <Compile Include="Models\DAO\DiaryDAO.cs" />
     <Compile Include="Models\DAO\EmployeeDAO.cs" />
+    <Compile Include="Models\DAO\EmployeeInDiaryDAO.cs" />
     <Compile Include="Models\DAO\ProductDAO.cs" />
     <Compile Include="Models\DAO\WorkDAO.cs" />
+    <Compile Include="Models\DAO\WorkInDiaryDAO.cs" />
     <Compile Include="Models\EntityFramework\Account.cs" />
     <Compile Include="Models\EntityFramework\ClientServerDbContext.cs" />
     <Compile Include="Models\EntityFramework\DanhMucCongNhanThucHienKhoan.cs" />
@@ -204,6 +206,13 @@
     <Content Include="Areas\Admin\Views\Work\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Work\Update.cshtml" />
     <Content Include="Areas\Admin\Views\Diary\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Diary\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Diary\ListByDate.cshtml" />
+    <Content Include="Areas\Admin\Views\Diary\Update.cshtml" />
+    <Content Include="Areas\Admin\Views\Diary\AddEmployee.cshtml" />
+    <Content Include="Areas\Admin\Views\Diary\UpdateEmployee.cshtml" />
+    <Content Include="Areas\Admin\Views\Diary\AddWork.cshtml" />
+    <Content Include="Areas\Admin\Views\Diary\UpdateWork.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

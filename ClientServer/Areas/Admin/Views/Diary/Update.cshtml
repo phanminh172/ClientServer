@@ -1,0 +1,69 @@
+﻿@model ClientServer.Models.EntityFramework.NhatKiSanLuongKhoan
+
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div id="content" class="container-fluid">
+    <div class="card">
+        <div class="card-header font-weight-bold">
+            Chỉnh sửa nhật ký
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("Update", "Diary", FormMethod.Post))
+            {
+                if (TempData["thongbao"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <strong>@TempData["thongbao"]</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                }
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MaNhatKi, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.MaNhatKi, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.MaNhatKi, "", new { @class = "text-danger font-italic" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NgayThucHien, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.TextBox("NgayThucHien", Model.NgayThucHien, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                        @Html.ValidationMessageFor(model => model.NgayThucHien, "", new { @class = "text-danger font-italic" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.GioBatDau, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.TextBox("GioBatDau", Model.GioBatDau, "{0:hh\\:mm}", new { @class = "form-control", type = "time" })
+                        @Html.ValidationMessageFor(model => model.NgayThucHien, "", new { @class = "text-danger font-italic" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.GioKetThuc, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.TextBox("GioKetThuc", Model.GioKetThuc, "{0:hh\\:mm}", new { @class = "form-control", type = "time" })
+                        @Html.ValidationMessageFor(model => model.NgayThucHien, "", new { @class = "text-danger font-italic" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Cập nhật" class="btn btn-success" />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
