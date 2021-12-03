@@ -48,7 +48,6 @@ namespace ClientServer.Models.DAO
                 employee.PhongBan = entity.PhongBan;
                 employee.ChucVu = entity.ChucVu;
                 context.SaveChanges();
-                //context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
                 return true;
             }
             catch(Exception ex)
@@ -70,6 +69,11 @@ namespace ClientServer.Models.DAO
                 return false;
             }
             
+        }
+
+        public List<ThongTinCongNhan> DropDownList()
+        {
+            return context.ThongTinCongNhans.ToList();
         }
     }
 }

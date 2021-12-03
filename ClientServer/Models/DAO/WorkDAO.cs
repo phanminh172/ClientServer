@@ -64,7 +64,11 @@ namespace ClientServer.Models.DAO
             {
                 return false;
             }
+        }
 
+        public List<DanhMucCongViec> DropDownList()
+        {
+            return context.DanhMucCongViecs.ToList();
         }
     }
 }

@@ -1,0 +1,85 @@
+﻿@model ClientServer.Models.EntityFramework.DanhMucCongViecDaLam
+
+@{
+    ViewBag.Title = "Chỉnh sửa";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div id="content" class="container-fluid">
+    <div class="card">
+        <div class="card-header font-weight-bold">
+            Chỉnh sửa
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("UpdateWork", "Diary", FormMethod.Post))
+            {
+                if (TempData["thongbao2"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <strong>@TempData["thongbao2"]</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                }
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group d-none">
+                    @Html.LabelFor(model => model.MaDanhMucCongViecDaLam, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.MaDanhMucCongViecDaLam, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.MaDanhMucCongViecDaLam, "", new { @class = "text-danger font-italic" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MaNhatKi, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.MaNhatKi, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.MaNhatKi, "", new { @class = "text-danger font-italic" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MaCongViec, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.DropDownList("MaCongViec", (IEnumerable<SelectListItem>)ViewBag.DanhSachCongViec, new { @class = "form-control", @readonly = "readonly" })
+                        @Html.ValidationMessageFor(model => model.MaCongViec, "", new { @class = "text-danger font-italic" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MaSanPham, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.DropDownList("MaSanPham", (IEnumerable<SelectListItem>)ViewBag.DanhSachSanPham, new { @class = "form-control", @readonly = "readonly" })
+                        @Html.ValidationMessageFor(model => model.MaSanPham, "", new { @class = "text-danger font-italic" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SoLoSanPham, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.SoLoSanPham, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SoLoSanPham, "", new { @class = "text-danger font-italic" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SanLuongThucTe, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.SanLuongThucTe, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SanLuongThucTe, "", new { @class = "text-danger font-italic" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="cập nhật" class="btn btn-success" />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

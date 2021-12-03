@@ -65,7 +65,10 @@ namespace ClientServer.Models.DAO
             {
                 return false;
             }
-
+        }
+        public List<ThongTinSanPham> DropDownList()
+        {
+            return context.ThongTinSanPhams.ToList();
         }
 
         public int Create(string TenSanPham, string SoDangKy, DateTime? HanSuDung, string QuyCach, DateTime? NgayDangKy)
