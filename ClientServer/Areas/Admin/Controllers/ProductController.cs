@@ -18,6 +18,13 @@ namespace ClientServer.Areas.Admin.Controllers
             ViewBag.searchString = searchString;
             return View(productList);
         }
+        public ActionResult maxDiary(String searchString, int page = 1, int pageSize = 5)
+        {
+            var productDAO = new ProductDAO();
+            var productList = productDAO.ListAll(searchString, page, pageSize);
+            ViewBag.searchString = searchString;
+            return View(productList);
+        }
 
         public ActionResult Create()
         {
@@ -104,5 +111,6 @@ namespace ClientServer.Areas.Admin.Controllers
             }
             return RedirectToAction("Index");
         }
+
     }
 }

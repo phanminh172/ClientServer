@@ -30,10 +30,24 @@
             </div>
         }
     <div class="card-body">
-        <div class="analytic">
+        @*<div class="analytic">
             <a href="">Tất cả (100)</a>
             <a href="">Làm chung (100)</a>
             <a href="">Làm riêng (100)</a>
+        </div>*@
+        <div class="btn-group mr-auto">
+            <button type="button" class="btn dropdown" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                Tùy Chọn
+                <i class="arrow fas fa-angle-right"></i>
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="">Công việc có nhiều NKSLK nhất</a>
+                <a class="dropdown-item" href="">Công việc có đơn giá cao nhất</a>
+                <a class="dropdown-item" href="">Công việc có đơn giá thấp nhất</a>
+                <a class="dropdown-item" href="">Công việc có đơn giá lớn hơn đơn giá trung bình</a>
+                <a class="dropdown-item" href="">Công việc có đơn giá nhỏ hơn đơn giá trung bình</a>
+            </div>
         </div>
         @if (Model != null)
         {
