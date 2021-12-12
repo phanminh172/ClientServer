@@ -1,8 +1,7 @@
-﻿@model PagedList.IPagedList<ClientServer.Models.EntityFramework.ThongTinSanPham>
-@using PagedList.Mvc;
+﻿
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "StatisticSalary";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 <div id="content" class="container-fluid">
@@ -10,8 +9,8 @@
         <div class="card-header font-weight-bold d-flex justify-content-between align-items-center"
              style="box-sizing: border-box">
             <h5 class="m-0 ">Danh sách sản phẩm</h5>
-            
-           
+
+
             <div class="form-inline">
 
                 @using (Html.BeginForm("Index", "Product", FormMethod.Get))
@@ -34,12 +33,12 @@
         }
         <div class="card-body">
             <div class="btn-group mr-auto">
-                
+
                 <select class="dropdown-content">
                     <option selected value="0">--filter--</option>
                     <option value="@ViewBag.maxPrice">Sản phẩm có ngày đăng kí trước .../.../...</option>
                     <option value="@ViewBag.minPrice">Sản phẩm có hạn sử dụng trên 1 năm</option>
-                   
+
                 </select>
             </div>
             @if (Model != null)
@@ -49,8 +48,8 @@
                     <thead>
                         <tr>
                             <th scope="col">STT</th>
-                            <th scope="col">Mã sản phẩm</th>
-                            <th scope="col">Tên sản phẩm</th>
+                            <th scope="col">Mã công nhân</th>
+                            <th scope="col">Họ tên</th>
                             <th scope="col">Số đăng ký</th>
                             <th scope="col">Hạn sử dụng</th>
                             <th scope="col">Ngày đăng ký</th>
@@ -111,10 +110,9 @@
                         }
                     </tbody>
                 </table>
-                <div class="pagination" style="float: right;">
-                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchString = ViewBag.searchString }))
-                </div>
+                
             }
         </div>
     </div>
 </div>
+

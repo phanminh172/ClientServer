@@ -146,8 +146,10 @@
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
+    <Compile Include="Areas\Admin\Controllers\StatisticController.cs" />
     <Compile Include="Areas\Admin\Controllers\WorkController.cs" />
     <Compile Include="Areas\Admin\Models\LoginModel.cs" />
+    <Compile Include="Areas\Admin\Models\SalaryModel.cs" />
     <Compile Include="Controllers\DiaryController.cs" />
     <Compile Include="Controllers\diaryDetailController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
@@ -163,6 +165,7 @@
     <Compile Include="Models\DAO\EmployeeDAO.cs" />
     <Compile Include="Models\DAO\EmployeeInDiaryDAO.cs" />
     <Compile Include="Models\DAO\ProductDAO.cs" />
+    <Compile Include="Models\DAO\StatisticDAO.cs" />
     <Compile Include="Models\DAO\WorkDAO.cs" />
     <Compile Include="Models\DAO\WorkInDiaryDAO.cs" />
     <Compile Include="Models\EntityFramework\Account.cs" />
@@ -221,6 +224,9 @@
     <Content Include="Areas\Admin\Views\Diary\UpdateEmployee.cshtml" />
     <Content Include="Areas\Admin\Views\Diary\AddWork.cshtml" />
     <Content Include="Areas\Admin\Views\Diary\UpdateWork.cshtml" />
+    <Content Include="Areas\Admin\Views\Work\Search.cshtml" />
+    <Content Include="Areas\Admin\Views\Statistic\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Statistic\StatisticSalary.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
