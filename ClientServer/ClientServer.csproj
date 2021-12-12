@@ -148,6 +148,7 @@
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\StatisticController.cs" />
     <Compile Include="Areas\Admin\Controllers\WorkController.cs" />
+    <Compile Include="Areas\Admin\Models\DiaryModel.cs" />
     <Compile Include="Areas\Admin\Models\LoginModel.cs" />
     <Compile Include="Areas\Admin\Models\SalaryModel.cs" />
     <Compile Include="Controllers\DiaryController.cs" />
@@ -224,9 +225,14 @@
     <Content Include="Areas\Admin\Views\Diary\UpdateEmployee.cshtml" />
     <Content Include="Areas\Admin\Views\Diary\AddWork.cshtml" />
     <Content Include="Areas\Admin\Views\Diary\UpdateWork.cshtml" />
-    <Content Include="Areas\Admin\Views\Work\Search.cshtml" />
     <Content Include="Areas\Admin\Views\Statistic\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Statistic\StatisticSalary.cshtml" />
+    <Content Include="Areas\Admin\Views\Statistic\WorkMaxValue.cshtml" />
+    <Content Include="Areas\Admin\Views\Statistic\WorkMinValue.cshtml" />
+    <Content Include="Areas\Admin\Views\Statistic\HigherAvg.cshtml" />
+    <Content Include="Areas\Admin\Views\Statistic\LowerAvg.cshtml" />
+    <Content Include="Areas\Admin\Views\Statistic\MaxDiary.cshtml" />
+    <Content Include="Areas\Admin\Views\Statistic\WeekDiary.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

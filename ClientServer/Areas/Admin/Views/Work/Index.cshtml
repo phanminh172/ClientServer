@@ -16,6 +16,7 @@
                 {
                     <input type="" class="form-control form-search" name="searchString" autocomplete="off"
                            placeholder="Nhập tên công việc ..." value="@ViewBag.CurrentFilter">
+                    
                     <button type="submit" class="btn btn-success">Tìm kiếm</button>
                 }
             </div>
@@ -30,20 +31,7 @@
             </div>
         }
     <div class="card-body">
-        <div class="btn-group mr-auto">
-            @using (Html.BeginForm("Search", "Work", FormMethod.Get))
-            {
-                <select class="dropdown-content" onchange="this.form.submit()">
-                    <option selected value="@ViewBag.CurrentSort">--filter--</option>
-                    <option value="1">Công việc có nhiều NKSLK nhất</option>
-                    <option value="2">Công việc có đơn giá cao nhất</option>
-                    <option value="3">Công việc có đơn giá thấp nhất</option>
-                    <option value="4">Công việc có đơn giá lớn hơn đơn giá trung bình</option>
-                    <option value="5">Công việc có đơn giá nhỏ hơn đơn giá trung bình</option>
-                </select>
-                <button type="submit" class="btn btn-success">Tìm kiếm</button>
-            }
-        </div>
+        
         @if (Model != null)
         {
             var count = 0;

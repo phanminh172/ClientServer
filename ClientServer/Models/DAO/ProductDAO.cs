@@ -92,27 +92,6 @@ namespace ClientServer.Models.DAO
         {
             return context.ThongTinSanPhams.Find(id);
         }
-        //public bool Update(ThongTinSanPham entity)
-        //{
-        //    try
-        //    {
-        //        var product = context.ThongTinSanPhams.Find(entity.MaSanPham);
-        //        product.TenSanPham = entity.TenSanPham;
-        //        product.SoDangKy = entity.SoDangKy;
-        //        product.QuyCach = entity.QuyCach;
-        //        //product.HanSuDung = entity.HanSuDung;
-        //        //product.NgayDangKy = entity.NgayDangKy;
-        //        context.SaveChanges();
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        //logging
-        //        return false;
-        //    }
-
-        //}
-
 
     }
 

@@ -3,6 +3,8 @@ using ClientServer.Models.EntityFramework;
 using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -15,34 +17,89 @@ namespace ClientServer.Models.DAO
         {
             context = new ClientServerDbContext();
         }
-        public IEnumerable<SalaryModel> ListSalary(string startDate, string endDate, int pageIndex = 1, int pageSize = 2)
+        public IEnumerable<DanhMucCongViec> MaxValue(int page, int pageSize)
         {
-            var model = from nksl in context.NhatKiSanLuongKhoans
-                        join dmcvdl in context.DanhMucCongViecDaLams on nksl.MaNhatKi equals dmcvdl.MaNhatKi into nksldmcvdl
-                        from dmcvdl in nksldmcvdl.DefaultIfEmpty()
-                        //from dmcvdl in context.DanhMucCongViecDaLams
-                        join dmcv in context.DanhMucCongViecs on dmcvdl.MaCongViec equals dmcv.MaCongViec into dmcvdldmcv
-                        from dmcv in dmcvdldmcv.DefaultIfEmpty()
-                        join dmcnk in context.DanhMucCongNhanThucHienKhoans on nksl.MaNhatKi equals dmcnk.MaNhatKi into nksldmcnk
-                        from dmcnk in nksldmcnk.DefaultIfEmpty()
-                        join dmcn in context.ThongTinCongNhans on dmcnk.MaCongNhan equals dmcn.MaCongNhan into dmcnkdmcn
-                        from dmcn in dmcnkdmcn.DefaultIfEmpty()
-                        orderby dmcnk.MaNhatKi
-                        select new
-                        {
-                            MaCongNhan = dmcn.MaCongNhan,
-                            NgayThucHien = nksl.NgayThucHien,
-                            MaCongViec = dmcv.MaCongViec,
-                            HoTen=dmcn.Hoten,
-                            PhongBan=dmcn.PhongBan,
-                            ChucVu=dmcn.ChucVu,
-                            GioiTinh=dmcn.GioiTinh,
-                            DonGia=dmcv.DonGia,
-                            SanLuongThucTe=dmcvdl.SanLuongThucTe,
-                            LuongHopDong=dmcn.LuongHopDong
-                        };
-            //model.OrderByDescending(x => x.CreatedDate).Skip((pageIndex - 1) * pageSize).Take(pageSize);
-            return model.OrderBy(x => x.MaCongViec).ToPagedList(pageIndex, pageSize); 
+            decimal? res = context.DanhMucCongViecs.Max(x => x.DonGia);
+
+            List<DanhMucCongViec> listKQ = context.DanhMucCongViecs.Where(x => x.DonGia == res).ToList();
+            return listKQ.OrderBy(x => x.MaCongViec).ToPagedList(page, pageSize);
         }
+        public IEnumerable<DanhMucCongViec> MinValue(int page, int pageSize)
+        {
+            decimal? res = context.DanhMucCongViecs.Min(x => x.DonGia);
+
+            List<DanhMucCongViec> listKQ = context.DanhMucCongViecs.Where(x => x.DonGia == res).ToList();
+            return listKQ.OrderBy(x => x.MaCongViec).ToPagedList(page, pageSize);
+        }
+        public IEnumerable<DanhMucCongViec> HigherAvg(int page, int pageSize)
+        {
+            decimal? res = context.DanhMucCongViecs.Average(x => x.DonGia);
+
+            List<DanhMucCongViec> listKQ = context.DanhMucCongViecs.Where(x => x.DonGia > res).ToList();
+            return listKQ.OrderBy(x => x.MaCongViec).ToPagedList(page, pageSize);
+        }
+        public IEnumerable<DanhMucCongViec> LowerAvg(int page, int pageSize)
+        {
+            decimal? res = context.DanhMucCongViecs.Average(x => x.DonGia);
+
+            List<DanhMucCongViec> listKQ = context.DanhMucCongViecs.Where(x => x.DonGia < res).ToList();
+            return listKQ.OrderBy(x => x.MaCongViec).ToPagedList(page, pageSize);
+        }
+        public IEnumerable<DanhMucCongViec> MaxDiary(int page, int pageSize)
+        {
+            return context.Database.SqlQuery<DanhMucCongViec>("exec Sp_MaxDiary").ToList().ToPagedList(page, pageSize);
+        }
+        public IEnumerable<DiaryModel> WeekDiary(string maCN, DateTime? date, int page, int pageSize)
+        {
+
+            if (maCN != null && date != null)
+            {
+                object[] parameters =
+                {
+                new SqlParameter("@maCN", maCN),
+                new SqlParameter("@date", date.ToString())
+                };
+               
+                return context.Database
+                    .SqlQuery<DiaryModel>("exec Sp_WeekDiary @maCN, @date", parameters)
+                    .ToList()
+                    .ToPagedList(page, pageSize);
+            }
+            return context.Database
+                .SqlQuery<DiaryModel>("exec Sp_DiaryAll")
+                .ToList()
+                .ToPagedList(page, pageSize);
+
+        }
+
+        //public IEnumerable<SalaryModel> ListSalaryMonth(string startDate, string endDate, int pageIndex = 1, int pageSize = 2)
+        //{
+        //    var model = from nksl in context.NhatKiSanLuongKhoans
+        //                join dmcvdl in context.DanhMucCongViecDaLams on nksl.MaNhatKi equals dmcvdl.MaNhatKi into nksldmcvdl
+        //                from dmcvdl in nksldmcvdl.DefaultIfEmpty()
+        //                //from dmcvdl in context.DanhMucCongViecDaLams
+        //                join dmcv in context.DanhMucCongViecs on dmcvdl.MaCongViec equals dmcv.MaCongViec into dmcvdldmcv
+        //                from dmcv in dmcvdldmcv.DefaultIfEmpty()
+        //                join dmcnk in context.DanhMucCongNhanThucHienKhoans on nksl.MaNhatKi equals dmcnk.MaNhatKi into nksldmcnk
+        //                from dmcnk in nksldmcnk.DefaultIfEmpty()
+        //                join dmcn in context.ThongTinCongNhans on dmcnk.MaCongNhan equals dmcn.MaCongNhan into dmcnkdmcn
+        //                from dmcn in dmcnkdmcn.DefaultIfEmpty()
+        //                orderby dmcnk.MaNhatKi
+        //                select new
+        //                {
+        //                    MaCongNhan = dmcn.MaCongNhan,
+        //                    NgayThucHien = nksl.NgayThucHien,
+        //                    MaCongViec = dmcv.MaCongViec,
+        //                    HoTen=dmcn.Hoten,
+        //                    PhongBan=dmcn.PhongBan,
+        //                    ChucVu=dmcn.ChucVu,
+        //                    GioiTinh=dmcn.GioiTinh,
+        //                    DonGia=dmcv.DonGia,
+        //                    SanLuongThucTe=dmcvdl.SanLuongThucTe,
+        //                    LuongHopDong=dmcn.LuongHopDong
+        //                };
+        //    //model.OrderByDescending(x => x.CreatedDate).Skip((pageIndex - 1) * pageSize).Take(pageSize);
+        //    return model.OrderBy(x => x.MaCongViec).ToPagedList(pageIndex, pageSize); 
+        //}
     }
 }

@@ -23,14 +23,11 @@ namespace ClientServer.Models.DAO
             }
             return (context.DanhMucCongViecs.OrderBy(x => x.MaCongViec).ToPagedList(page, pageSize));
         }
-        public IEnumerable<DanhMucCongViec> GetByFilter(string searchString, int page, int pageSize)
-        {
-            var works = ListAll(searchString, page, pageSize);
-            var ketqua = from product in works
-                         where product.DonGia.Equals("SELECT MAX(DonGia) FROM DanhMucCongViec")
-                         select product;
-            return ketqua;
-        }
+        //public IEnumerable<DanhMucCongViec> GetMaxValue()
+        //{
+        //    return context.DanhMucCongViecs.Where(x => x.DonGia > 0).Max(x => x.DonGia);
+           
+        //}
         public int Insert(DanhMucCongViec work)
         {
             context.DanhMucCongViecs.Add(work);

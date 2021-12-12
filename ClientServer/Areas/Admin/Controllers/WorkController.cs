@@ -22,33 +22,33 @@ namespace ClientServer.Areas.Admin.Controllers
         //GET: Admin/Work
         public ActionResult Index(string sortOrder, string searchString, int page = 1, int pageSize = 5)
         {
-            
+
             var workDAO = new WorkDAO();
             var workList = workDAO.ListAll(searchString, page, pageSize);
             ViewBag.searchString = searchString;
 
             return View(workList);
+            //context = new ClientServerDbContext();
+
+            //var query = "Select * from DanhMucCongViec";
+            //switch (ViewBag.CurrentSort)
+            //{
+            //    case '2':
+            //        query = "Select * from DanhMucCongViec WHERE DonGia > (SELECT AVG(DonGia) FROM DanhMucCongViec)";
+            //        break;
+            //    case 3:
+
+            //        break;
+            //    default:
+            //        query = query + " WHERE TenCongViec LIKE N'%" + searchString + "%'";
+            //        break;
+            //}
+            //var lstLoaiSanPham = context.DanhMucCongViecs.SqlQuery(query);
+            //return View(lstLoaiSanPham.ToPagedList(page, pageSize));
         }
 
-        public ActionResult Search(string searchString, int page = 1, int pageSize = 5)
-        {
-            context = new ClientServerDbContext();
-            var query = "Select * from DanhMucCongViec";
-            switch (ViewBag.CurrentSort)
-            {
-                case '2':
-                    query = "Select * from DanhMucCongViec WHERE DonGia > (SELECT AVG(DonGia) FROM DanhMucCongViec)";
-                    break;
-                case 3:
 
-                    break;
-                default:
-                    query = query + " WHERE TenCongViec LIKE N'%" + searchString + "%'";
-                    break;
-            }
-            var lstLoaiSanPham = context.DanhMucCongViecs.SqlQuery(query);
-            return View(lstLoaiSanPham.ToPagedList(page, pageSize));
-        }
+        
 
         public ActionResult Create()
         {

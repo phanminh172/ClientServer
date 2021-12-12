@@ -28,14 +28,14 @@
         [DataType(DataType.Time)]
         [Required(ErrorMessage = "Không được để trống giờ bắt đầu")]
         [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
-        public TimeSpan ThoiGianBatDauCongViec { get; set; }
+        public DateTime ThoiGianBatDauCongViec { get; set; }
 
 
         [DisplayName("Thời gian kết thúc")]
         [DataType(DataType.Time)]
         [Required(ErrorMessage = "Không được để trống giờ kết thúc")]
         [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
-        public TimeSpan ThoiGianKetThucCongViec { get; set; }
+        public DateTime ThoiGianKetThucCongViec { get; set; }
 
         public virtual NhatKiSanLuongKhoan NhatKiSanLuongKhoan { get; set; }
 
