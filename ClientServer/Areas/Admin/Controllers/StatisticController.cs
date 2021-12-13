@@ -23,6 +23,36 @@ namespace ClientServer.Areas.Admin.Controllers
         {
             return View();
         }
+        public ActionResult WorkMaxValue(int page = 1, int pageSize = 5)
+        {
+            var statisticDAO = new StatisticDAO();
+            var max = statisticDAO.MaxValue(page, pageSize);
+            return View(max);
+        }
+        public ActionResult WorkMinValue(int page = 1, int pageSize = 5)
+        {
+            var statisticDAO = new StatisticDAO();
+            var max = statisticDAO.MinValue(page, pageSize);
+            return View(max);
+        }
+        public ActionResult HigherAvg(int page = 1, int pageSize = 5)
+        {
+            var statisticDAO = new StatisticDAO();
+            var max = statisticDAO.HigherAvg(page, pageSize);
+            return View(max);
+        }
+        public ActionResult LowerAvg(int page = 1, int pageSize = 5)
+        {
+            var statisticDAO = new StatisticDAO();
+            var max = statisticDAO.LowerAvg(page, pageSize);
+            return View(max);
+        }
+        public ActionResult MaxDiary(int page = 1, int pageSize = 10)
+        {
+            var statisticDAO = new StatisticDAO();
+            var max = statisticDAO.MaxDiary(page, pageSize);
+            return View(max);
+        }
         
         public ActionResult WeekDiary(int? sortOrder, string searchString, DateTime? searchDate, int page = 1, int pageSize = 10)
         {

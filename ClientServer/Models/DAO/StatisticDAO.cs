@@ -17,7 +17,38 @@ namespace ClientServer.Models.DAO
         {
             context = new ClientServerDbContext();
         }
-       
+        public IEnumerable<DanhMucCongViec> MaxValue(int page, int pageSize)
+        {
+            decimal? res = context.DanhMucCongViecs.Max(x => x.DonGia);
+
+            List<DanhMucCongViec> listKQ = context.DanhMucCongViecs.Where(x => x.DonGia == res).ToList();
+            return listKQ.OrderBy(x => x.MaCongViec).ToPagedList(page, pageSize);
+        }
+        public IEnumerable<DanhMucCongViec> MinValue(int page, int pageSize)
+        {
+            decimal? res = context.DanhMucCongViecs.Min(x => x.DonGia);
+
+            List<DanhMucCongViec> listKQ = context.DanhMucCongViecs.Where(x => x.DonGia == res).ToList();
+            return listKQ.OrderBy(x => x.MaCongViec).ToPagedList(page, pageSize);
+        }
+        public IEnumerable<DanhMucCongViec> HigherAvg(int page, int pageSize)
+        {
+            decimal? res = context.DanhMucCongViecs.Average(x => x.DonGia);
+
+            List<DanhMucCongViec> listKQ = context.DanhMucCongViecs.Where(x => x.DonGia > res).ToList();
+            return listKQ.OrderBy(x => x.MaCongViec).ToPagedList(page, pageSize);
+        }
+        public IEnumerable<DanhMucCongViec> LowerAvg(int page, int pageSize)
+        {
+            decimal? res = context.DanhMucCongViecs.Average(x => x.DonGia);
+
+            List<DanhMucCongViec> listKQ = context.DanhMucCongViecs.Where(x => x.DonGia < res).ToList();
+            return listKQ.OrderBy(x => x.MaCongViec).ToPagedList(page, pageSize);
+        }
+        public IEnumerable<DanhMucCongViec> MaxDiary(int page, int pageSize)
+        {
+            return context.Database.SqlQuery<DanhMucCongViec>("exec Sp_MaxDiary").ToList().ToPagedList(page, pageSize);
+        }
         public IEnumerable<DiaryModel> WeekDiary(int? sortOrder, string maCN, DateTime? date, int page, int pageSize)
         {
             
