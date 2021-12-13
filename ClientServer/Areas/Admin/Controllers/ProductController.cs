@@ -93,20 +93,25 @@ namespace ClientServer.Areas.Admin.Controllers
     //    }
     //}
     // GET: Admin/Product
-    public ActionResult Index(String searchString,int page = 1, int pageSize = 5)
+    public ActionResult Index(int? sortOrder, DateTime? searchDate, String searchString,int page = 1, int pageSize = 10)
         {
             var productDAO = new ProductDAO();
-            var productList = productDAO.ListAll(searchString, page, pageSize);
+            var productList = productDAO.ListAll(sortOrder,searchDate, searchString, page, pageSize);
             ViewBag.searchString = searchString;
+            ViewBag.sortOrder = new SelectListItem()
+            {
+                Selected = sortOrder.HasValue
+            };
+            ViewBag.searchDate = searchDate;
             return View(productList);
         }
-        public ActionResult maxDiary(String searchString, int page = 1, int pageSize = 5)
-        {
-            var productDAO = new ProductDAO();
-            var productList = productDAO.ListAll(searchString, page, pageSize);
-            ViewBag.searchString = searchString;
-            return View(productList);
-        }
+        //public ActionResult maxDiary(String searchString, int page = 1, int pageSize = 5)
+        //{
+        //    var productDAO = new ProductDAO();
+        //    var productList = productDAO.ListAll(searchString, page, pageSize);
+        //    ViewBag.searchString = searchString;
+        //    return View(productList);
+        //}
 
         public ActionResult Create()
         {

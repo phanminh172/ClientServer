@@ -18,7 +18,14 @@
                 {
                     <input type="" class="form-control form-search" name="searchString" autocomplete="off"
                            placeholder="Nhập tên sản phẩm ..." value="@ViewBag.searchString">
+                    <select class="dropdown-content" name="sortOrder" value="@ViewBag.sortOrder">
+                        <option selected value="0">--filter--</option>
+                        <option value="1">Sản phẩm có ngày đăng kí trước </option>
+                        <option value="2">Sản phẩm có hạn sử dụng trên 1 năm</option>
 
+                    </select>
+                    <input type="date" class="form-control form-search" name="searchDate" autocomplete="off"
+                            value="@ViewBag.searchDate">
                     <button type="submit" class="btn btn-success">Tìm kiếm</button>
                 }
             </div>
@@ -33,15 +40,7 @@
             </div>
         }
         <div class="card-body">
-            <div class="btn-group mr-auto">
-                
-                <select class="dropdown-content">
-                    <option selected value="0">--filter--</option>
-                    <option value="@ViewBag.maxPrice">Sản phẩm có ngày đăng kí trước .../.../...</option>
-                    <option value="@ViewBag.minPrice">Sản phẩm có hạn sử dụng trên 1 năm</option>
-                   
-                </select>
-            </div>
+            
             @if (Model != null)
             {
                 var count = 0;

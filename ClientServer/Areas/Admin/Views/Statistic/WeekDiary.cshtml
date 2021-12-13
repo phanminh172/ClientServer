@@ -13,12 +13,20 @@
             <h5 class="m-0 ">Nhật kí sản lượng khoán của công nhân theo tuần</h5>
         </div>
         <div class="form-inline">
+
             @using (Html.BeginForm("WeekDiary", "Statistic", FormMethod.Get))
             {
                 <input type="" class="form-control form-search" name="searchString" autocomplete="off"
                        placeholder="Nhập mã công nhân ..." value="@ViewBag.searchString">
                 <input type="date" class="form-control form-search" name="searchDate" autocomplete="off"
                        placeholder="Nhập ngày ..." value="@ViewBag.searchDate">
+                <select class="dropdown-content" name="sortOrder" value="@ViewBag.sortOrder">
+                    <option selected value="0">--filter--</option>
+                    <option value="1">Nhật kí theo tháng</option>
+                    <option value="2">Nhật kí theo năm</option>
+
+                </select>
+
                 <button type="submit" class="btn btn-success">Tìm kiếm</button>
             }
         </div>
