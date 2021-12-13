@@ -49,36 +49,21 @@ namespace ClientServer.Models.DAO
         {
             return context.Database.SqlQuery<DanhMucCongViec>("exec Sp_MaxDiary").ToList().ToPagedList(page, pageSize);
         }
-        public IEnumerable<DiaryModel> WeekDiary(int? sortOrder, string maCN, DateTime? date, int page, int pageSize)
+        public IEnumerable<DiaryModel> WeekDiary(string maCN, DateTime? date, int page, int pageSize)
         {
-            
-            if (maCN != null && date != null && sortOrder !=null)
+
+            if (maCN != null && date != null)
             {
                 object[] parameters =
                 {
                 new SqlParameter("@maCN", maCN),
                 new SqlParameter("@date", date.ToString())
                 };
-                switch (sortOrder)
-                {
-                    case 1:
-                        return context.Database
-                            .SqlQuery<DiaryModel>("exec Sp_MonthDiary @maCN", parameters)
-                            .ToList()
-                            .ToPagedList(page, pageSize);
-                    case 2:
-                        return context.Database
-                            .SqlQuery<DiaryModel>("exec Sp_WeekDiary @maCN, @date", parameters)
-                            .ToList()
-                            .ToPagedList(page, pageSize);
-                    default:
-                        return context.Database
-                            .SqlQuery<DiaryModel>("exec Sp_DiaryAll")
-                            .ToList()
-                            .ToPagedList(page, pageSize);
-                }
-                
-                
+               
+                return context.Database
+                    .SqlQuery<DiaryModel>("exec Sp_WeekDiary @maCN, @date", parameters)
+                    .ToList()
+                    .ToPagedList(page, pageSize);
             }
             return context.Database
                 .SqlQuery<DiaryModel>("exec Sp_DiaryAll")

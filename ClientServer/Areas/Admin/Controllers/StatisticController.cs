@@ -54,14 +54,12 @@ namespace ClientServer.Areas.Admin.Controllers
             return View(max);
         }
         
-        public ActionResult WeekDiary(int? sortOrder, string searchString, DateTime? searchDate, int page = 1, int pageSize = 10)
+        public ActionResult WeekDiary(string searchString, DateTime? searchDate, int page = 1, int pageSize = 10)
         {
             var statisticDAO = new StatisticDAO();
-            var max = statisticDAO.WeekDiary(sortOrder, searchString, searchDate, page, pageSize);
+            var max = statisticDAO.WeekDiary(searchString, searchDate, page, pageSize);
             ViewBag.searchString = searchString;
             ViewBag.searchDate = searchDate;
-            ViewBag.sortOrder = sortOrder;
-            
             return View(max);
         }
     }

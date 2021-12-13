@@ -10,8 +10,11 @@ namespace ClientServer.Areas.Admin.Models
     {
         public string TenCongViec { set; get; }
         
-        public int? Ngay { set; get; }
-        public int? Thang { set; get; }
+        public int Ngay { set; get; }
+        
     }
-    
+    //public class DiaryType
+    //{
+    //    public List<DiaryModel> diaryModels { get; set; }
+    //}
 }
