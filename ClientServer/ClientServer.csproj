@@ -227,12 +227,7 @@
     <Content Include="Areas\Admin\Views\Diary\UpdateWork.cshtml" />
     <Content Include="Areas\Admin\Views\Statistic\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Statistic\StatisticSalary.cshtml" />
-    <Content Include="Areas\Admin\Views\Statistic\WorkMaxValue.cshtml" />
-    <Content Include="Areas\Admin\Views\Statistic\WorkMinValue.cshtml" />
-    <Content Include="Areas\Admin\Views\Statistic\HigherAvg.cshtml" />
-    <Content Include="Areas\Admin\Views\Statistic\LowerAvg.cshtml" />
-    <Content Include="Areas\Admin\Views\Statistic\MaxDiary.cshtml" />
-    <Content Include="Areas\Admin\Views\Statistic\WeekDiary.cshtml" />
+    <Content Include="Areas\Admin\Views\Statistic\StatisticEmployee.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

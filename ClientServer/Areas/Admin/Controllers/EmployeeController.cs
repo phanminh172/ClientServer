@@ -1,7 +1,9 @@
 ﻿using ClientServer.Models.DAO;
 using ClientServer.Models.EntityFramework;
+using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,13 +12,20 @@ namespace ClientServer.Areas.Admin.Controllers
 {
     public class EmployeeController : Controller
     {
+        ClientServerDbContext context;
         // GET: Admin/Employee
-        public ActionResult Index(String searchString, int page = 1, int pageSize = 5)
+        public ActionResult Index(string searchPhongBan, string searchChucVu,
+            int? fromAge, int? toAge, String searchString, int page = 1, int pageSize = 5)
         {
             var employeeDAO = new EmployeeDAO();
-            var employeeList = employeeDAO.ListAll(searchString, page, pageSize);
+            var res = employeeDAO.ListAll(searchPhongBan, searchChucVu, fromAge, toAge, searchString, page, pageSize);
             ViewBag.searchString = searchString;
-            return View(employeeList);
+            ViewBag.searchPhongBan = searchPhongBan;
+            ViewBag.searchChucVu = searchChucVu;
+            ViewBag.fromAge = fromAge;
+            ViewBag.toAge = toAge;
+            return View(res);
+            
         }
         public ActionResult Create()
         {
@@ -66,7 +75,7 @@ namespace ClientServer.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var dao = new EmployeeDAO();
-                if(dao.Update(employee) == true)
+                if (dao.Update(employee) == true)
                 {
                     TempData["thongbao"] = "Chỉnh sửa thành công!";
                     return RedirectToAction("Index", "Employee");
@@ -74,14 +83,14 @@ namespace ClientServer.Areas.Admin.Controllers
                 else
                 {
                     TempData["thongbao"] = "Chỉnh sửa thất bại!!";
-                }    
+                }
             }
             return View(employee);
         }
         public ActionResult Delete(int id)
         {
             var dao = new EmployeeDAO();
-            if(dao.Delete(id) == true)
+            if (dao.Delete(id) == true)
             {
                 TempData["thongbao"] = "Xóa thành công!";
                 return RedirectToAction("Index");

@@ -17,61 +17,128 @@ namespace ClientServer.Models.DAO
         {
             context = new ClientServerDbContext();
         }
-        public IEnumerable<DanhMucCongViec> MaxValue(int page, int pageSize)
-        {
-            decimal? res = context.DanhMucCongViecs.Max(x => x.DonGia);
 
-            List<DanhMucCongViec> listKQ = context.DanhMucCongViecs.Where(x => x.DonGia == res).ToList();
-            return listKQ.OrderBy(x => x.MaCongViec).ToPagedList(page, pageSize);
-        }
-        public IEnumerable<DanhMucCongViec> MinValue(int page, int pageSize)
+        public IEnumerable<DiaryModel> WeekDiary(int? sortOrder, string searchString, DateTime? date, int page, int pageSize)
         {
-            decimal? res = context.DanhMucCongViecs.Min(x => x.DonGia);
-
-            List<DanhMucCongViec> listKQ = context.DanhMucCongViecs.Where(x => x.DonGia == res).ToList();
-            return listKQ.OrderBy(x => x.MaCongViec).ToPagedList(page, pageSize);
-        }
-        public IEnumerable<DanhMucCongViec> HigherAvg(int page, int pageSize)
-        {
-            decimal? res = context.DanhMucCongViecs.Average(x => x.DonGia);
-
-            List<DanhMucCongViec> listKQ = context.DanhMucCongViecs.Where(x => x.DonGia > res).ToList();
-            return listKQ.OrderBy(x => x.MaCongViec).ToPagedList(page, pageSize);
-        }
-        public IEnumerable<DanhMucCongViec> LowerAvg(int page, int pageSize)
-        {
-            decimal? res = context.DanhMucCongViecs.Average(x => x.DonGia);
-
-            List<DanhMucCongViec> listKQ = context.DanhMucCongViecs.Where(x => x.DonGia < res).ToList();
-            return listKQ.OrderBy(x => x.MaCongViec).ToPagedList(page, pageSize);
-        }
-        public IEnumerable<DanhMucCongViec> MaxDiary(int page, int pageSize)
-        {
-            return context.Database.SqlQuery<DanhMucCongViec>("exec Sp_MaxDiary").ToList().ToPagedList(page, pageSize);
-        }
-        public IEnumerable<DiaryModel> WeekDiary(string maCN, DateTime? date, int page, int pageSize)
-        {
-
-            if (maCN != null && date != null)
+            if (searchString != null && sortOrder != null)
             {
                 object[] parameters =
                 {
-                new SqlParameter("@maCN", maCN),
+                new SqlParameter("@maCN", searchString),
                 new SqlParameter("@date", date.ToString())
                 };
-               
-                return context.Database
-                    .SqlQuery<DiaryModel>("exec Sp_WeekDiary @maCN, @date", parameters)
-                    .ToList()
-                    .ToPagedList(page, pageSize);
+                if (searchString == "")
+                {
+                    switch (sortOrder)
+                    {
+                        case 1:
+                            return context.Database
+                                .SqlQuery<DiaryModel>("exec Sp_MonthDiaryAll")
+                                .ToList()
+                                .ToPagedList(page, pageSize);
+                        case 2:
+                            return context.Database
+                                .SqlQuery<DiaryModel>("exec Sp_WeekDiaryAll @date", parameters)
+                                .ToList()
+                                .ToPagedList(page, pageSize);
+                        case 3:
+                            return context.Database
+                                .SqlQuery<DiaryModel>("exec Sp_nkslkC3")
+                                .ToList()
+                                .ToPagedList(page, pageSize);
+                        default:
+                            return context.Database
+                                .SqlQuery<DiaryModel>("exec Sp_DiaryAll")
+                                .ToList()
+                                .ToPagedList(page, pageSize);
+                    }
+                }
+                switch (sortOrder)
+                {
+                    case 1:
+                        return context.Database
+                            .SqlQuery<DiaryModel>("exec Sp_MonthDiary @maCN", parameters)
+                            .ToList()
+                            .ToPagedList(page, pageSize);
+                    case 2:
+                        return context.Database
+                            .SqlQuery<DiaryModel>("exec Sp_WeekDiary @maCN, @date", parameters)
+                            .ToList()
+                            .ToPagedList(page, pageSize);
+                    default:
+                        return context.Database
+                            .SqlQuery<DiaryModel>("exec Sp_DiaryAll")
+                            .ToList()
+                            .ToPagedList(page, pageSize);
+                }
             }
             return context.Database
-                .SqlQuery<DiaryModel>("exec Sp_DiaryAll")
-                .ToList()
-                .ToPagedList(page, pageSize);
+              .SqlQuery<DiaryModel>("exec Sp_DiaryAll")
+              .ToList()
+              .ToPagedList(page, pageSize);
 
         }
 
+        public IEnumerable<ThongTinCongNhan> StatisticEmployee(int page, int pageSize)
+        {
+            //if (searchString != null && sortOrder != null)
+            //{
+            //    object[] parameters =
+            //    {
+            //    new SqlParameter("@maCN", searchString),
+            //    new SqlParameter("@date", date.ToString())
+            //    };
+            //    if (searchString == "")
+            //    {
+            //        switch (sortOrder)
+            //        {
+            //            case 1:
+            //                return context.Database
+            //                    .SqlQuery<DiaryModel>("exec Sp_MonthDiaryAll")
+            //                    .ToList()
+            //                    .ToPagedList(page, pageSize);
+            //            case 2:
+            //                return context.Database
+            //                    .SqlQuery<DiaryModel>("exec Sp_WeekDiaryAll @date", parameters)
+            //                    .ToList()
+            //                    .ToPagedList(page, pageSize);
+            //            case 3:
+            //                return context.Database
+            //                    .SqlQuery<DiaryModel>("exec Sp_nkslkC3")
+            //                    .ToList()
+            //                    .ToPagedList(page, pageSize);
+            //            default:
+            //                return context.Database
+            //                    .SqlQuery<DiaryModel>("exec Sp_DiaryAll")
+            //                    .ToList()
+            //                    .ToPagedList(page, pageSize);
+            //        }
+            //    }
+            //    switch (sortOrder)
+            //    {
+            //        case 1:
+            //            return context.Database
+            //                .SqlQuery<DiaryModel>("exec Sp_MonthDiary @maCN", parameters)
+            //                .ToList()
+            //                .ToPagedList(page, pageSize);
+            //        case 2:
+            //            return context.Database
+            //                .SqlQuery<DiaryModel>("exec Sp_WeekDiary @maCN, @date", parameters)
+            //                .ToList()
+            //                .ToPagedList(page, pageSize);
+            //        default:
+            //            return context.Database
+            //                .SqlQuery<DiaryModel>("exec Sp_DiaryAll")
+            //                .ToList()
+            //                .ToPagedList(page, pageSize);
+            //    }
+            //}
+            return context.Database
+              .SqlQuery<ThongTinCongNhan>("exec Sp_Employee_ListAll")
+              .ToList()
+              .ToPagedList(page, pageSize);
+
+        }
         //public IEnumerable<SalaryModel> ListSalaryMonth(string startDate, string endDate, int pageIndex = 1, int pageSize = 2)
         //{
         //    var model = from nksl in context.NhatKiSanLuongKhoans

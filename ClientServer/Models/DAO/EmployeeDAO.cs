@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using PagedList;
+using System.Data.SqlClient;
 
 namespace ClientServer.Models.DAO
 {
@@ -14,14 +15,30 @@ namespace ClientServer.Models.DAO
         {
             context = new ClientServerDbContext();
         }
-        public IEnumerable<ThongTinCongNhan> ListAll(String searchString, int page, int pageSize)
+        public IEnumerable<ThongTinCongNhan> ListAll(string searchPhongBan, string searchChucVu,
+            int? fromAge, int? toAge, String searchString, int page = 1, int pageSize = 5)
         {
+            object[] parameters =
+                {
+                new SqlParameter("@PhongBan", searchPhongBan),
+                new SqlParameter("@ChucVu", searchChucVu),
+                new SqlParameter("@fromAge", fromAge),
+                new SqlParameter("@toAge", toAge),
+                new SqlParameter("@name", searchString),
+                };
             if (searchString != null)
             {
-                List<ThongTinCongNhan> listKQ = context.ThongTinCongNhans.Where(n => n.Hoten.Contains(searchString)).ToList();
-                return listKQ.OrderBy(x => x.MaCongNhan).ToPagedList(page, pageSize);
+                return context.Database
+              .SqlQuery<ThongTinCongNhan>("exec Sp_Employee_ListAll @name",parameters)
+              .ToList()
+              .ToPagedList(page, pageSize);
+               
+                
             }
-            return (context.ThongTinCongNhans.OrderBy(x => x.MaCongNhan).ToPagedList(page, pageSize));
+            return context.Database
+              .SqlQuery<ThongTinCongNhan>("exec Sp_Employee_ListAllNonParam")
+              .ToList()
+              .ToPagedList(page, pageSize);
         }
 
         public int Insert(ThongTinCongNhan employee)

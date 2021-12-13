@@ -14,20 +14,49 @@ namespace ClientServer.Models.DAO
         {
             context = new ClientServerDbContext();
         }
-        public IEnumerable<DanhMucCongViec> ListAll(String searchString, int page, int pageSize)
+        public IEnumerable<DanhMucCongViec> ListAll(int? sortOrder, String searchString, int page, int pageSize)
         {
             if (searchString != null)
             {
                 List<DanhMucCongViec> listKQ = context.DanhMucCongViecs.Where(n => n.TenCongViec.Contains(searchString)).ToList();
+                if (sortOrder != null)
+                {
+
+                    switch (sortOrder)
+                    {
+                        case 1:
+                            return context.Database
+                                .SqlQuery<DanhMucCongViec>("exec Sp_MaxDiary")
+                                .ToList()
+                                .ToPagedList(page, pageSize);
+                        case 2:
+                            return context.Database
+                                .SqlQuery<DanhMucCongViec>("exec Sp_MaxValue")
+                                .ToList()
+                                .ToPagedList(page, pageSize);
+                        case 3:
+                            return context.Database
+                                .SqlQuery<DanhMucCongViec>("exec Sp_MinValue")
+                                .ToList()
+                                .ToPagedList(page, pageSize);
+                        case 4:
+                            return context.Database
+                                .SqlQuery<DanhMucCongViec>("exec Sp_higherAvg")
+                                .ToList()
+                                .ToPagedList(page, pageSize);
+                        case 5:
+                            return context.Database
+                                .SqlQuery<DanhMucCongViec>("exec Sp_lowerAvg")
+                                .ToList()
+                                .ToPagedList(page, pageSize);
+                        default:
+                            return listKQ.OrderBy(x => x.MaCongViec).ToPagedList(page, pageSize);
+                    }
+                }
                 return listKQ.OrderBy(x => x.MaCongViec).ToPagedList(page, pageSize);
             }
             return (context.DanhMucCongViecs.OrderBy(x => x.MaCongViec).ToPagedList(page, pageSize));
         }
-        //public IEnumerable<DanhMucCongViec> GetMaxValue()
-        //{
-        //    return context.DanhMucCongViecs.Where(x => x.DonGia > 0).Max(x => x.DonGia);
-           
-        //}
         public int Insert(DanhMucCongViec work)
         {
             context.DanhMucCongViecs.Add(work);

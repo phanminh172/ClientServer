@@ -15,52 +15,31 @@ namespace ClientServer.Areas.Admin.Controllers
     {
         ClientServerDbContext context;
         // GET: Admin/Statistic
-        public ActionResult Index()
+        public ActionResult Index(int? sortOrder, string searchString, DateTime? searchDate, int page = 1, int pageSize = 10)
         {
-            return View();
+            var statisticDAO = new StatisticDAO();
+            var res = statisticDAO.WeekDiary(sortOrder, searchString, searchDate, page, pageSize);
+            ViewBag.searchString = searchString;
+            ViewBag.searchDate = searchDate;
+            ViewBag.sortOrder = sortOrder;
+            return View(res);
         }
         public ActionResult StatisticSalaryMonth(int page = 1, int pageSize = 5)
         {
             return View();
         }
-        public ActionResult WorkMaxValue(int page = 1, int pageSize = 5)
+        public ActionResult StatisticEmployee(int page = 1, int pageSize = 5)
         {
             var statisticDAO = new StatisticDAO();
-            var max = statisticDAO.MaxValue(page, pageSize);
-            return View(max);
+            var res = statisticDAO.StatisticEmployee(page, pageSize);
+            //ViewBag.searchString = searchString;
+            //ViewBag.searchDate = searchDate;
+            //ViewBag.sortOrder = sortOrder;
+            return View(res);
         }
-        public ActionResult WorkMinValue(int page = 1, int pageSize = 5)
-        {
-            var statisticDAO = new StatisticDAO();
-            var max = statisticDAO.MinValue(page, pageSize);
-            return View(max);
-        }
-        public ActionResult HigherAvg(int page = 1, int pageSize = 5)
-        {
-            var statisticDAO = new StatisticDAO();
-            var max = statisticDAO.HigherAvg(page, pageSize);
-            return View(max);
-        }
-        public ActionResult LowerAvg(int page = 1, int pageSize = 5)
-        {
-            var statisticDAO = new StatisticDAO();
-            var max = statisticDAO.LowerAvg(page, pageSize);
-            return View(max);
-        }
-        public ActionResult MaxDiary(int page = 1, int pageSize = 10)
-        {
-            var statisticDAO = new StatisticDAO();
-            var max = statisticDAO.MaxDiary(page, pageSize);
-            return View(max);
-        }
-        
-        public ActionResult WeekDiary(string searchString, DateTime? searchDate, int page = 1, int pageSize = 10)
-        {
-            var statisticDAO = new StatisticDAO();
-            var max = statisticDAO.WeekDiary(searchString, searchDate, page, pageSize);
-            ViewBag.searchString = searchString;
-            ViewBag.searchDate = searchDate;
-            return View(max);
-        }
+        //public ActionResult WeekDiary(int? sortOrder, string searchString, DateTime? searchDate, int page = 1, int pageSize = 10)
+        //{
+
+        //}
     }
 }

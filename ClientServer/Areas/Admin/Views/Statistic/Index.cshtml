@@ -1,8 +1,81 @@
-﻿
+﻿@model PagedList.IPagedList<ClientServer.Areas.Admin.Models.DiaryModel>
+@using PagedList.Mvc;
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "WeekDiary";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div id="content" class="container-fluid">
+    <div class="card">
+        <div class="card-header font-weight-bold d-flex justify-content-between align-items-center"
+             style="box-sizing: border-box">
+            <h5 class="m-0 ">Thống kê nhật kí sản lượng khoán của công nhân</h5>
+        </div>
+        <div class="form-inline">
+            @using (Html.BeginForm("Index", "Statistic", FormMethod.Get))
+            {
+                <input type="" class="form-control form-search" name="searchString" autocomplete="off"
+                       placeholder="Nhập mã công nhân ..." value="@ViewBag.searchString">
+                <input type="date" class="form-control form-search" name="searchDate" autocomplete="off"
+                       value="@ViewBag.searchDate">
+                <select class="dropdown-content" name="sortOrder" value="@ViewBag.sortOrder">
+                    <option selected value="0">--filter--</option>
+                    <option value="1">Nhật kí theo tháng</option>
+                    <option value="2">Nhật kí theo tuần</option>
+                    <option value="3">Nhật kí thực hiện ở ca 3</option>
+                </select>
+                <button type="submit" class="btn btn-success">Tìm kiếm</button>
+            }
+        </div>
+        @if (TempData["thongbao"] != null)
+        {
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <strong>@TempData["thongbao"]</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+        <div class="card-body">
 
+            @if (Model != null)
+            {
+                var count = 0;
+                <table class="table table-striped table-checkall">
+                    <thead>
+                        <tr>
+                            <th scope="col">STT</th>
+                            <th scope="col">Mã nhật kí</th>
+                            <th scope="col">Mã công nhân</th>
+                            <th scope="col">Ngày thực hiện</th>
+                            <th scope="col">Thời gian bắt đầu</th>
+                            <th scope="col">Thời gian kết thúc</th>
+                            <th scope="col">Tên công việc</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            count++;
+                            <tr>
+                                <td scope="row">@count</td>
+                                <td>@item.MaNhatKi</td>
+                                <td>@item.MaCongNhan</td>
+                                <td>@item.Ngay</td>
+                                <td>@item.ThoiGianBatDauCongViec</td>
+                                <td>@item.ThoiGianKetThucCongViec</td>
+                                <td>@item.TenCongViec</td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="pagination" style="float: right;">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchString = ViewBag.searchString, searchDate = ViewBag.searchDate }))
+                </div>
+            }
+        </div>
+    </div>
+</div>

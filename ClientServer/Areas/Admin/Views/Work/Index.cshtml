@@ -16,7 +16,14 @@
                 {
                     <input type="" class="form-control form-search" name="searchString" autocomplete="off"
                            placeholder="Nhập tên công việc ..." value="@ViewBag.CurrentFilter">
-                    
+                    <select class="dropdown-content" name="sortOrder" value="@ViewBag.sortOrder">
+                        <option selected value="0">--filter--</option>
+                        <option value="1">Công việc nhiều NKSLK nhất </option>
+                        <option value="2">Công việc có đơn giá cao nhất</option>
+                        <option value="3">Công việc có đơn giá thấp nhất</option>
+                        <option value="4">Công việc có đơn giá cao hơn trung bình</option>
+                        <option value="5">Công việc có đơn giá thấp hơn trung bình</option>
+                    </select>
                     <button type="submit" class="btn btn-success">Tìm kiếm</button>
                 }
             </div>

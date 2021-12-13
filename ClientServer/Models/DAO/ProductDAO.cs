@@ -15,14 +15,40 @@ namespace ClientServer.Models.DAO
         {
             context = new ClientServerDbContext();
         }
-        public IEnumerable<ThongTinSanPham> ListAll(String searchString,int page, int pageSize)
+        public IEnumerable<ThongTinSanPham> ListAll(int? sortOrder, DateTime? searchDate, String searchString, int page, int pageSize)
         {
             if (searchString != null)
             {
                 List<ThongTinSanPham> listKQ = context.ThongTinSanPhams.Where(n => n.TenSanPham.Contains(searchString)).ToList();
+                if (sortOrder != null)
+                {
+                    object[] parameters =
+                    {
+                        new SqlParameter("@name", searchString),
+                        new SqlParameter("@date", searchDate.ToString())
+                    };
+                    switch (sortOrder)
+                    {
+                        case 1:
+                            return context.Database
+                                .SqlQuery<ThongTinSanPham>("exec Sp_searchNgayDangKi @date,@name", parameters)
+                                .ToList()
+                                .ToPagedList(page, pageSize);
+                        case 2:
+                            return context.Database
+                                .SqlQuery<ThongTinSanPham>("exec Sp_searchHSD @name", parameters)
+                                .ToList()
+                                .ToPagedList(page, pageSize);
+                        default:
+                            return listKQ.OrderBy(x => x.MaSanPham).ToPagedList(page, pageSize);
+                    }
+                }
+
                 return listKQ.OrderBy(x => x.MaSanPham).ToPagedList(page, pageSize);
             }
+
             return (context.ThongTinSanPhams.OrderBy(x => x.MaSanPham).ToPagedList(page, pageSize));
+
         }
         public int Insert(ThongTinSanPham product)
         {

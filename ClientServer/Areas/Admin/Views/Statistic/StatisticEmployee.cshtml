@@ -1,31 +1,22 @@
-﻿@model PagedList.IPagedList<ClientServer.Models.EntityFramework.ThongTinSanPham>
+﻿@model PagedList.IPagedList<ClientServer.Models.EntityFramework.ThongTinCongNhan>
 @using PagedList.Mvc;
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "StatisticEmployee";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+
 <div id="content" class="container-fluid">
     <div class="card">
         <div class="card-header font-weight-bold d-flex justify-content-between align-items-center"
              style="box-sizing: border-box">
-            <h5 class="m-0 ">Danh sách sản phẩm</h5>
-            
-           
+            <h5 class="m-0 ">Thống kê công nhân</h5>
             <div class="form-inline">
-
-                @using (Html.BeginForm("Index", "Product", FormMethod.Get))
+                @using (Html.BeginForm("StatisticEmployee", "Statistic", FormMethod.Get))
                 {
                     <input type="" class="form-control form-search" name="searchString" autocomplete="off"
-                           placeholder="Nhập tên sản phẩm ..." value="@ViewBag.searchString">
-                    <select class="dropdown-content" name="sortOrder" value="@ViewBag.sortOrder">
-                        <option selected value="0">--filter--</option>
-                        <option value="1">Sản phẩm có ngày đăng kí trước </option>
-                        <option value="2">Sản phẩm có hạn sử dụng trên 1 năm</option>
-
-                    </select>
-                    <input type="date" class="form-control form-search" name="searchDate" autocomplete="off"
-                           value="@ViewBag.searchDate">
+                           placeholder="Nhập tên công nhân ..." value="@ViewBag.searchString">
+                    
                     <button type="submit" class="btn btn-success">Tìm kiếm</button>
                 }
             </div>
@@ -40,7 +31,11 @@
             </div>
         }
         <div class="card-body">
-            
+            @*<div class="analytic">
+                    <a href="">Tất cả (100)</a>
+                    <a href="">Làm chung (100)</a>
+                    <a href="">Làm riêng (100)</a>
+                </div>*@
             @if (Model != null)
             {
                 var count = 0;
@@ -48,12 +43,12 @@
                     <thead>
                         <tr>
                             <th scope="col">STT</th>
-                            <th scope="col">Mã sản phẩm</th>
-                            <th scope="col">Tên sản phẩm</th>
-                            <th scope="col">Số đăng ký</th>
-                            <th scope="col">Hạn sử dụng</th>
-                            <th scope="col">Ngày đăng ký</th>
-                            <th scope="col">Quy cách</th>
+                            <th scope="col">Mã công nhân</th>
+                            <th scope="col">Tên công nhân</th>
+                            <th scope="col">Giới tính</th>
+                            <th scope="col">Lương bảo hiểm</th>
+                            <th scope="col">Lương hợp đồng</th>
+                            <th scope="col">Phòng ban</th>
                             <th scope="col">Tác vụ</th>
                         </tr>
                     </thead>
@@ -63,29 +58,29 @@
                             count++;
                             <tr>
                                 <td scope="row">@count</td>
-                                <td>@item.MaSanPham</td>
-                                <td>@item.TenSanPham</td>
-                                <td>@item.SoDangKy</td>
-                                <td>@item.HanSuDung.Value.ToString("dd/MM/yyyy")</td>
-                                <td>@item.NgayDangKy.Value.ToString("dd/MM/yyyy")</td>
-                                <td>@item.QuyCach</td>
+                                <td>@item.MaCongNhan</td>
+                                <td>@item.Hoten</td>
+                                <td>@item.GioiTinh</td>
+                                <td>@item.LuongBaoHiem</td>
+                                <td>@item.LuongHopDong</td>
+                                <td>@item.PhongBan</td>
                                 <td>
-                                    <a href="/Admin/Product/Edit/@item.MaSanPham" class="btn btn-success btn-sm rounded-0 text-white" type="button"
+                                    <a href="/Admin/Employee/Update/@item.MaCongNhan" class="btn btn-success btn-sm rounded-0 text-white" type="button"
                                        data-toggle="tooltip" data-placement="top" title="Chỉnh sửa">
                                         <i class="fa fa-edit"></i>
                                     </a>
                                     <a class="btn btn-danger btn-sm rounded-0 text-white" type="button"
-                                       data-toggle="modal" data-target="#deleteModal-@item.MaSanPham"
+                                       data-toggle="modal" data-target="#deleteModal-@item.MaCongNhan"
                                        data-placement="top" title="Xóa">
                                         <i class="fa fa-trash delete-btn"></i>
                                     </a>
 
-                                    <div class="modal fade" id="deleteModal-@item.MaSanPham" tabindex="-1"
+                                    <div class="modal fade" id="deleteModal-@item.MaCongNhan" tabindex="-1"
                                          role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="modalLabel">Xóa sản phẩm</h5>
+                                                    <h5 class="modal-title" id="modalLabel">Xóa nhân viên</h5>
                                                     <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
@@ -99,7 +94,7 @@
                                                             data-dismiss="modal">
                                                         Hủy
                                                     </button>
-                                                    <a href="/Admin/Product/Delete/@item.MaSanPham"
+                                                    <a href="/Admin/Employee/Delete/@item.MaCongNhan"
                                                        name="deleteData" class="btn btn-danger">Xác nhận</a>
                                                 </div>
                                             </div>
@@ -111,7 +106,7 @@
                     </tbody>
                 </table>
                 <div class="pagination" style="float: right;">
-                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchString = ViewBag.searchString }))
+                    @Html.PagedListPager(Model, page => Url.Action("StatisticEmployee", new { page, searchString = ViewBag.searchString }))
                 </div>
             }
         </div>
