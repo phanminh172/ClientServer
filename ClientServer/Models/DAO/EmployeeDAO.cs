@@ -1,13 +1,14 @@
 ﻿using ClientServer.Models.EntityFramework;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using PagedList;
-using System.Data.SqlClient;
 
 namespace ClientServer.Models.DAO
 {
+    
     public class EmployeeDAO
     {
         private ClientServerDbContext context = null;
@@ -68,7 +69,7 @@ namespace ClientServer.Models.DAO
         }
         public ThongTinCongNhan GetById(int id)
         {
-            return context.ThongTinCongNhans.SingleOrDefault(x => x.MaCongNhan == id);
+            return context.ThongTinCongNhans.FirstOrDefault(x => x.MaCongNhan == id);
         }
         public bool Update(ThongTinCongNhan entity)
         {
@@ -106,7 +107,6 @@ namespace ClientServer.Models.DAO
             }
             
         }
-
         public List<ThongTinCongNhan> DropDownList()
         {
             return context.ThongTinCongNhans.ToList();

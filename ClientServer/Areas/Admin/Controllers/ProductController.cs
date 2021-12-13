@@ -146,11 +146,9 @@ namespace ClientServer.Areas.Admin.Controllers
             }
         }
         [HttpGet]
-        // GET: Admin/Product/Edit/5
-        public ActionResult Edit(int id)
+        // GET: Admin/Product/Update/{id}
+        public ActionResult Update(int id)
         {
-            //var product = new ProductDAO().GetById(id);
-            //return View(product);
 
             var dao = new ProductDAO();
 
@@ -166,24 +164,24 @@ namespace ClientServer.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ThongTinSanPham collection)
+        public ActionResult Update(ThongTinSanPham product)
         {
             if (ModelState.IsValid)
             {
                 var dao = new ProductDAO();
               
                 //var result = dao.Update(collection);
-                if (dao.Update(collection) == true)
+                if (dao.Update(product) == true)
                 {
-
+                    TempData["thongbao"] = "Chỉnh sửa thành công!";
                     return RedirectToAction("Index", "Product");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Cập nhật sản phẩm không thành công");
+                    TempData["thongbao"] = "Chỉnh sửa thất bại!!";
                 }
             }
-            return View(collection);
+            return View(product);
         }
         public ActionResult Delete(int id)
         {

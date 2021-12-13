@@ -18,7 +18,7 @@
                 {
                     <input type="" class="form-control form-search" name="searchString" autocomplete="off"
                            placeholder="Nhập tên sản phẩm ..." value="@ViewBag.searchString">
-                    <select class="dropdown-content" name="sortOrder" value="@ViewBag.sortOrder">
+                    <select class="dropdown-content form-control" name="sortOrder" value="@ViewBag.sortOrder">
                         <option selected value="0">--filter--</option>
                         <option value="1">Sản phẩm có ngày đăng kí trước </option>
                         <option value="2">Sản phẩm có hạn sử dụng trên 1 năm</option>
@@ -70,7 +70,7 @@
                                 <td>@item.NgayDangKy.Value.ToString("dd/MM/yyyy")</td>
                                 <td>@item.QuyCach</td>
                                 <td>
-                                    <a href="/Admin/Product/Edit/@item.MaSanPham" class="btn btn-success btn-sm rounded-0 text-white" type="button"
+                                    <a href="@Url.Action("Update","Product",new { id = item.MaSanPham })" class="btn btn-success btn-sm rounded-0 text-white" type="button"
                                        data-toggle="tooltip" data-placement="top" title="Chỉnh sửa">
                                         <i class="fa fa-edit"></i>
                                     </a>
@@ -99,7 +99,7 @@
                                                             data-dismiss="modal">
                                                         Hủy
                                                     </button>
-                                                    <a href="/Admin/Product/Delete/@item.MaSanPham"
+                                                    <a href="@Url.Action("Delete","Product",new { id = item.MaSanPham })"
                                                        name="deleteData" class="btn btn-danger">Xác nhận</a>
                                                 </div>
                                             </div>
