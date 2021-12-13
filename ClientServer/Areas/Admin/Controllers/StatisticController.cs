@@ -39,5 +39,12 @@ namespace ClientServer.Areas.Admin.Controllers
             ViewBag.sortOrder = sortOrder;
             return View(res);
         }
+        public ActionResult StatisticWorkingDay(DateTime? searchDate, int page = 1, int pageSize = 10)
+        {
+            var statisticDAO = new StatisticDAO();
+            var res = statisticDAO.StatisticWorkingDay(searchDate, page, pageSize);
+            
+            return View(res);
+        }
     }
 }

@@ -152,6 +152,7 @@
     <Compile Include="Areas\Admin\Models\LoginModel.cs" />
     <Compile Include="Areas\Admin\Models\SalaryModel.cs" />
     <Compile Include="Areas\Admin\Models\StatisticEmployeeModel.cs" />
+    <Compile Include="Areas\Admin\Models\WorkingShiftModel.cs" />
     <Compile Include="Controllers\DiaryController.cs" />
     <Compile Include="Controllers\diaryDetailController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
@@ -229,6 +230,7 @@
     <Content Include="Areas\Admin\Views\Statistic\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Statistic\StatisticSalary.cshtml" />
     <Content Include="Areas\Admin\Views\Statistic\StatisticEmployee.cshtml" />
+    <Content Include="Areas\Admin\Views\Statistic\StatisticWorkingDay.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
