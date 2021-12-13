@@ -1,23 +1,29 @@
-﻿
+﻿@model PagedList.IPagedList< ClientServer.Areas.Admin.Models.SalaryModel>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "StatisticSalary";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+
 <div id="content" class="container-fluid">
     <div class="card">
         <div class="card-header font-weight-bold d-flex justify-content-between align-items-center"
              style="box-sizing: border-box">
-            <h5 class="m-0 ">Danh sách sản phẩm</h5>
-
 
             <div class="form-inline">
-
-                @using (Html.BeginForm("Index", "Product", FormMethod.Get))
+                <h5 class="m-0 ">Bảng lương công nhân</h5>
+                @using (Html.BeginForm("StatisticSalary", "Statistic", FormMethod.Get))
                 {
-                    <input type="" class="form-control form-search" name="searchString" autocomplete="off"
-                           placeholder="Nhập tên sản phẩm ..." value="@ViewBag.searchString">
-
+                    <input type="date" class="form-control form-search" name="searchDate" autocomplete="off"
+                           value="@ViewBag.searchDate">
+                    <select class="dropdown-content" name="sortOrder" value="@ViewBag.sortOrder">
+                        <option selected value="0">--filter--</option>
+                        <option value="1">Bảng lương cao nhất</option>
+                        <option value="2">Bảng lương thấp nhất</option>
+                        <option value="3">Bảng lương theo tháng</option>
+                        <option value="4">Bảng lương theo tuần</option>
+                    </select>
                     <button type="submit" class="btn btn-success">Tìm kiếm</button>
                 }
             </div>
@@ -32,15 +38,11 @@
             </div>
         }
         <div class="card-body">
-            <div class="btn-group mr-auto">
-
-                <select class="dropdown-content">
-                    <option selected value="0">--filter--</option>
-                    <option value="@ViewBag.maxPrice">Sản phẩm có ngày đăng kí trước .../.../...</option>
-                    <option value="@ViewBag.minPrice">Sản phẩm có hạn sử dụng trên 1 năm</option>
-
-                </select>
-            </div>
+            @*<div class="analytic">
+                    <a href="">Tất cả (100)</a>
+                    <a href="">Làm chung (100)</a>
+                    <a href="">Làm riêng (100)</a>
+                </div>*@
             @if (Model != null)
             {
                 var count = 0;
@@ -48,71 +50,37 @@
                     <thead>
                         <tr>
                             <th scope="col">STT</th>
-                            <th scope="col">Mã công nhân</th>
+                            <th scope="col">Mã Công Nhân</th>
                             <th scope="col">Họ tên</th>
-                            <th scope="col">Số đăng ký</th>
-                            <th scope="col">Hạn sử dụng</th>
-                            <th scope="col">Ngày đăng ký</th>
-                            <th scope="col">Quy cách</th>
-                            <th scope="col">Tác vụ</th>
+                            <th scope="col">Mã Công Việc</th>
+                            <th scope="col">Tên Công việc</th>
+                            <th scope="col">Sản Lượng Thực tế</th>
+                            <th scope="col">Đơn giá</th>
+                            <th scope="col">Bảng Lương</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
                             count++;
-                            <tr>
-                                <td scope="row">@count</td>
-                                <td>@item.MaSanPham</td>
-                                <td>@item.TenSanPham</td>
-                                <td>@item.SoDangKy</td>
-                                <td>@item.HanSuDung.Value.ToString("dd/MM/yyyy")</td>
-                                <td>@item.NgayDangKy.Value.ToString("dd/MM/yyyy")</td>
-                                <td>@item.QuyCach</td>
-                                <td>
-                                    <a href="/Admin/Product/Edit/@item.MaSanPham" class="btn btn-success btn-sm rounded-0 text-white" type="button"
-                                       data-toggle="tooltip" data-placement="top" title="Chỉnh sửa">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                    <a class="btn btn-danger btn-sm rounded-0 text-white" type="button"
-                                       data-toggle="modal" data-target="#deleteModal-@item.MaSanPham"
-                                       data-placement="top" title="Xóa">
-                                        <i class="fa fa-trash delete-btn"></i>
-                                    </a>
-
-                                    <div class="modal fade" id="deleteModal-@item.MaSanPham" tabindex="-1"
-                                         role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="modalLabel">Xóa sản phẩm</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Bạn chắc chắn muốn xóa ?
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-dark"
-                                                            data-dismiss="modal">
-                                                        Hủy
-                                                    </button>
-                                                    <a href="/Admin/Product/Delete/@item.MaSanPham"
-                                                       name="deleteData" class="btn btn-danger">Xác nhận</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>@count</td>
+                            <td>@item.MaCongNhan</td>
+                            <td>@item.Hoten</td>
+                            <td>@item.MaCongViec</td>
+                            <td>@item.TenCongViec</td>
+                            <td>@item.SanLuongThucTe</td>
+                            <td>@item.DonGia</td>
+                            <td>@item.BangLuong</td>
+                        </tr>
                         }
                     </tbody>
                 </table>
-                
+                <div class="pagination" style="float: right;">
+                    @Html.PagedListPager(Model, page => Url.Action("StatisticSalary"))
+                </div>
             }
         </div>
     </div>
 </div>
-

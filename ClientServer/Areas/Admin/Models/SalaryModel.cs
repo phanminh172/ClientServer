@@ -11,22 +11,10 @@ namespace ClientServer.Areas.Admin.Models
     public class SalaryModel:ThongTinCongNhan
     {
         
-        public string SanLuongThucTe { set; get; }
-        public string MaCongViec { set; get; }
-        public string DonGia { set; get; }
-        public string BangLuong { set; get; }
-        public DateTime? NgayThucHien { get; set; }
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        [DisplayName("Ngày bắt đầu")]
-        [Required(ErrorMessage = "Không được để trống ngày bắt đầu")]
-        public DateTime? NgayBatDau { get; set; }
-
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        [DisplayName("Ngày kết thúc")]
-        [Required(ErrorMessage = "Không được để trống ngày kết thúc")]
-        public DateTime? NgayKetThuc { get; set; }
-        public bool Type { set; get; }
+        public int SanLuongThucTe { set; get; }
+        public int MaCongViec { set; get; }
+        public decimal? DonGia { set; get; }
+        public decimal? BangLuong { set; get; }
+        public string TenCongViec { set; get; }
     }
 }

@@ -24,22 +24,20 @@ namespace ClientServer.Areas.Admin.Controllers
             ViewBag.sortOrder = sortOrder;
             return View(res);
         }
-        public ActionResult StatisticSalaryMonth(int page = 1, int pageSize = 5)
-        {
-            return View();
-        }
-        public ActionResult StatisticEmployee(int page = 1, int pageSize = 5)
+        public ActionResult StatisticSalary(int? sortOrder,DateTime? searchDate, int page = 1, int pageSize = 10)
         {
             var statisticDAO = new StatisticDAO();
-            var res = statisticDAO.StatisticEmployee(page, pageSize);
-            //ViewBag.searchString = searchString;
-            //ViewBag.searchDate = searchDate;
-            //ViewBag.sortOrder = sortOrder;
+            var res = statisticDAO.StatisticSalary(sortOrder, searchDate, page, pageSize);
+            ViewBag.searchDate = searchDate;
+            ViewBag.sortOrder = sortOrder;
             return View(res);
         }
-        //public ActionResult WeekDiary(int? sortOrder, string searchString, DateTime? searchDate, int page = 1, int pageSize = 10)
-        //{
-
-        //}
+        public ActionResult StatisticEmployee(int? sortOrder,int page = 1, int pageSize = 10)
+        {
+            var statisticDAO = new StatisticDAO();
+            var res = statisticDAO.StatisticEmployee(sortOrder,page, pageSize);
+            ViewBag.sortOrder = sortOrder;
+            return View(res);
+        }
     }
 }

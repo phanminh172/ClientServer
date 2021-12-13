@@ -151,6 +151,7 @@
     <Compile Include="Areas\Admin\Models\DiaryModel.cs" />
     <Compile Include="Areas\Admin\Models\LoginModel.cs" />
     <Compile Include="Areas\Admin\Models\SalaryModel.cs" />
+    <Compile Include="Areas\Admin\Models\StatisticEmployeeModel.cs" />
     <Compile Include="Controllers\DiaryController.cs" />
     <Compile Include="Controllers\diaryDetailController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />

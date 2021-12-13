@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<ClientServer.Models.EntityFramework.ThongTinCongNhan>
+﻿@model PagedList.IPagedList<ClientServer.Areas.Admin.Models.StatisticEmployeeModel>
 @using PagedList.Mvc;
 
 @{
@@ -10,13 +10,16 @@
     <div class="card">
         <div class="card-header font-weight-bold d-flex justify-content-between align-items-center"
              style="box-sizing: border-box">
-            <h5 class="m-0 ">Thống kê công nhân</h5>
+            <h5 class="m-0 ">Thống kê công nhân chuẩn bị về hưu</h5>
             <div class="form-inline">
+
                 @using (Html.BeginForm("StatisticEmployee", "Statistic", FormMethod.Get))
                 {
-                    <input type="" class="form-control form-search" name="searchString" autocomplete="off"
-                           placeholder="Nhập tên công nhân ..." value="@ViewBag.searchString">
-                    
+                    <select class="dropdown-content" name="sortOrder" value="@ViewBag.sortOrder">
+                        <option selected value="0">--filter--</option>
+                        <option value="1">Nam</option>
+                        <option value="2">Nữ</option>
+                    </select>
                     <button type="submit" class="btn btn-success">Tìm kiếm</button>
                 }
             </div>
@@ -42,14 +45,15 @@
                 <table class="table table-striped table-checkall">
                     <thead>
                         <tr>
-                            <th scope="col">STT</th>
-                            <th scope="col">Mã công nhân</th>
-                            <th scope="col">Tên công nhân</th>
+                            <th scope="col">Mã CN</th>
+                            <th scope="col">Họ tên</th>
+                            <th scope="col">Ngày Sinh</th>
                             <th scope="col">Giới tính</th>
                             <th scope="col">Lương bảo hiểm</th>
                             <th scope="col">Lương hợp đồng</th>
                             <th scope="col">Phòng ban</th>
-                            <th scope="col">Tác vụ</th>
+                            <th scope="col">Chức vụ</th>
+                            <th scope="col">Tuổi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,50 +61,15 @@
                         {
                             count++;
                             <tr>
-                                <td scope="row">@count</td>
                                 <td>@item.MaCongNhan</td>
                                 <td>@item.Hoten</td>
+                                <td>@item.NgaySinh.Value.ToString("dd/MM/yyyy")</td>
                                 <td>@item.GioiTinh</td>
                                 <td>@item.LuongBaoHiem</td>
                                 <td>@item.LuongHopDong</td>
                                 <td>@item.PhongBan</td>
-                                <td>
-                                    <a href="/Admin/Employee/Update/@item.MaCongNhan" class="btn btn-success btn-sm rounded-0 text-white" type="button"
-                                       data-toggle="tooltip" data-placement="top" title="Chỉnh sửa">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                    <a class="btn btn-danger btn-sm rounded-0 text-white" type="button"
-                                       data-toggle="modal" data-target="#deleteModal-@item.MaCongNhan"
-                                       data-placement="top" title="Xóa">
-                                        <i class="fa fa-trash delete-btn"></i>
-                                    </a>
-
-                                    <div class="modal fade" id="deleteModal-@item.MaCongNhan" tabindex="-1"
-                                         role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="modalLabel">Xóa nhân viên</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Bạn chắc chắn muốn xóa ?
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-dark"
-                                                            data-dismiss="modal">
-                                                        Hủy
-                                                    </button>
-                                                    <a href="/Admin/Employee/Delete/@item.MaCongNhan"
-                                                       name="deleteData" class="btn btn-danger">Xác nhận</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
+                                <td>@item.ChucVu</td>
+                                <td>@item.Tuoi</td>
                             </tr>
                         }
                     </tbody>

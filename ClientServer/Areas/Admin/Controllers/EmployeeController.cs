@@ -15,7 +15,7 @@ namespace ClientServer.Areas.Admin.Controllers
         ClientServerDbContext context;
         // GET: Admin/Employee
         public ActionResult Index(string searchPhongBan, string searchChucVu,
-            int? fromAge, int? toAge, String searchString, int page = 1, int pageSize = 5)
+            string fromAge, string toAge, String searchString, int page = 1, int pageSize = 10)
         {
             var employeeDAO = new EmployeeDAO();
             var res = employeeDAO.ListAll(searchPhongBan, searchChucVu, fromAge, toAge, searchString, page, pageSize);

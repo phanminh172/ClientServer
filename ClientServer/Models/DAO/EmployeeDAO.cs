@@ -16,7 +16,7 @@ namespace ClientServer.Models.DAO
             context = new ClientServerDbContext();
         }
         public IEnumerable<ThongTinCongNhan> ListAll(string searchPhongBan, string searchChucVu,
-            int? fromAge, int? toAge, String searchString, int page = 1, int pageSize = 5)
+            string fromAge, string toAge, String searchString, int page = 1, int pageSize = 5)
         {
             object[] parameters =
                 {
@@ -28,12 +28,31 @@ namespace ClientServer.Models.DAO
                 };
             if (searchString != null)
             {
+                if (fromAge != "" && toAge != "")
+                {
+                    return context.Database
+                  .SqlQuery<ThongTinCongNhan>("exec Sp_Employee_ListFilter @name,@PhongBan,@ChucVu,@fromAge,@toAge", parameters)
+                  .ToList()
+                  .ToPagedList(page, pageSize);
+                }
+                if (fromAge != "" && toAge == "")
+                {
+                    return context.Database
+                  .SqlQuery<ThongTinCongNhan>("exec Sp_Employee_ListFilterLeft @name,@PhongBan,@ChucVu,@fromAge", parameters)
+                  .ToList()
+                  .ToPagedList(page, pageSize);
+                }
+                if (fromAge == "" && toAge != "")
+                {
+                    return context.Database
+                  .SqlQuery<ThongTinCongNhan>("exec Sp_Employee_ListFilterRight @name,@PhongBan,@ChucVu,@toAge", parameters)
+                  .ToList()
+                  .ToPagedList(page, pageSize);
+                }
                 return context.Database
-              .SqlQuery<ThongTinCongNhan>("exec Sp_Employee_ListAll @name",parameters)
-              .ToList()
-              .ToPagedList(page, pageSize);
-               
-                
+                  .SqlQuery<ThongTinCongNhan>("exec Sp_Employee_ListAll @name,@PhongBan,@ChucVu", parameters)
+                  .ToList()
+                  .ToPagedList(page, pageSize);
             }
             return context.Database
               .SqlQuery<ThongTinCongNhan>("exec Sp_Employee_ListAllNonParam")
